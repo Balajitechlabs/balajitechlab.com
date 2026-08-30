@@ -1,5 +1,0 @@
-allowBuilds:
-  esbuild: true
-  workerd: true
-  unrs-resolver: true
-  sharp: true
