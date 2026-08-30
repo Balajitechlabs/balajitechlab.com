@@ -97,8 +97,6 @@ export default function WarpShaderBackground({
 }: WarpShaderBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isVisibleRef = useRef(true);
-  const targetMouseRef = useRef<[number, number]>([0, 0]);
-  const smoothMouseRef = useRef<[number, number]>([0, 0]);
 
   useEffect(() => {
     // Notify parent of extracted Material You palette

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { ReleaseNote, AppTag } from "@/lib/releaseNotes";
 import "@/styles/index/release-feed.css";
@@ -162,7 +162,7 @@ export default function ReleaseFeed({
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  const closeNote = () => {
+  const closeNote = useCallback(() => {
     setIsModalVisible(false);
     setTimeout(() => {
       setSelectedNote(null);
@@ -174,7 +174,7 @@ export default function ReleaseFeed({
     params.delete("update");
     const newUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
     router.replace(newUrl, { scroll: false });
-  };
+  }, [pathname, router, searchParams]);
 
   const handleCopyLink = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -226,7 +226,7 @@ export default function ReleaseFeed({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedNote]);
+  }, [selectedNote, closeNote]);
 
   const formatDate = (dateStr: string) => {
     try {

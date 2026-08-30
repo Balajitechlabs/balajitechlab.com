@@ -197,7 +197,7 @@ interface VoronoiShaderBackgroundProps {
 
 export default function VoronoiShaderBackground({
   opacity = 0.52,
-  onThemeColorsChange,
+  onThemeColorsChange: _onThemeColorsChange,
 }: VoronoiShaderBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isVisibleRef = useRef(true);

@@ -13,10 +13,10 @@ interface CalendarData {
 }
 
 interface GitHubCalendarCardProps {
-  isMounted: boolean;
+  isMounted?: boolean;
 }
 
-export default function GitHubCalendarCard({ isMounted }: GitHubCalendarCardProps) {
+export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCalendarCardProps) {
   const [data, setData] = useState<ActivityDay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);

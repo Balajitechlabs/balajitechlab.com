@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import { toast } from "sonner";
 import { soundFx } from "@/lib/soundFx";
@@ -35,6 +36,7 @@ export default function DeveloperPalette({
   activeTheme,
   onThemeSelect,
 }: DeveloperPaletteProps) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [soundActive, setSoundActive] = useState(true);
 
@@ -173,7 +175,7 @@ export default function DeveloperPalette({
                     <span className="cmd-shortcut">#contact</span>
                   </Command.Item>
 
-                  <Command.Item className="cmd-item" onSelect={() => handleSelect(() => { window.location.href = "/macos"; })}>
+                  <Command.Item className="cmd-item" onSelect={() => handleSelect(() => { router.push("/macos"); })}>
                     <Laptop className="cmd-item-icon" size={16} />
                     <span className="cmd-item-title">macOS Developer Setup Showcase</span>
                     <ArrowUpRight className="cmd-arrow" size={14} />

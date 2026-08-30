@@ -258,12 +258,11 @@ interface UniverseWithinBackgroundProps {
 
 export default function UniverseWithinBackground({
   opacity = 0.52,
-  onThemeColorsChange,
+  onThemeColorsChange: _onThemeColorsChange,
 }: UniverseWithinBackgroundProps) {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isVisibleRef = useRef(true);
-  const mousePosRef = useRef<[number, number]>([0, 0]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
