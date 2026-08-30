@@ -47,19 +47,24 @@ function calcStreaks(days: ContributionDay[]): {
     }
   }
 
-  const today = new Date().toISOString().slice(0, 10);
+  // Timezone-aware today calculation (Asia/Kolkata)
+  const now = new Date();
+  const todayIST = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(now);
+  const todayUTC = now.toISOString().slice(0, 10);
+  const effectiveToday = todayIST >= todayUTC ? todayIST : todayUTC;
+
   const reversed = [...sorted].reverse();
   let current = 0;
 
   for (const d of reversed) {
-    if (d.date > today) continue;
-    if (d.date === today && d.contributionCount === 0) {
-      continue; // Today is ongoing
+    if (d.date > effectiveToday) continue;
+    if (d.date === effectiveToday && d.contributionCount === 0) {
+      continue; // Today is still ongoing in IST
     }
     if (d.contributionCount > 0) {
       current++;
     } else {
-      break; // Stop at first non-contributing day
+      break; // Stop at first missed non-contributing day
     }
   }
 
