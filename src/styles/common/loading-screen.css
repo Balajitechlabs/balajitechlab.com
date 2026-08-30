@@ -1,0 +1,141 @@
+/* ── Hardware-Accelerated Luxury Splash & Loading Screen ── */
+.btl-splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background-color: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: all;
+}
+
+.btl-splash-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary-color, #4affbd) 25%, transparent) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btl-splash-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  max-width: 400px;
+}
+
+/* ── Logo with Pulsing Energy Rings ── */
+.btl-splash-logo-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btl-splash-logo-img {
+  width: 84px;
+  height: 84px;
+  border-radius: 24px;
+  object-fit: cover;
+  background-color: #ffffff;
+  border: 2px solid color-mix(in srgb, var(--primary-color, #4affbd) 60%, rgba(255, 255, 255, 0.4));
+  box-shadow: 
+    0 12px 35px color-mix(in srgb, var(--primary-color, #4affbd) 35%, rgba(0, 0, 0, 0.8)),
+    0 0 25px color-mix(in srgb, var(--primary-color, #4affbd) 30%, transparent);
+  position: relative;
+  z-index: 2;
+}
+
+.btl-splash-logo-pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 30px;
+  border: 1.5px solid color-mix(in srgb, var(--primary-color, #4affbd) 50%, transparent);
+  animation: btl-splash-pulse 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes btl-splash-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+}
+
+/* ── Typography ── */
+.btl-splash-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btl-splash-monogram {
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: var(--primary-color, #4affbd);
+  background: color-mix(in srgb, var(--primary-color, #4affbd) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary-color, #4affbd) 30%, transparent);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.btl-splash-brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+  font-family: "Google Sans Flex", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.btl-splash-caption {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ── High-Tech Scanline Progress Bar ── */
+.btl-splash-progress-track {
+  width: 180px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.btl-splash-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--primary-color, #4affbd));
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--primary-color, #4affbd);
+}

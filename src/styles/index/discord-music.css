@@ -1,0 +1,290 @@
+@keyframes bar-pulse {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+#music {
+  text-decoration: none;
+}
+
+#music {
+  text-decoration: none;
+}
+
+#last {
+  position: relative;
+  color: var(--text-color);
+  border-radius: var(--radius-out);
+  border: none;
+  background: var(--background-color-tr);
+  backdrop-filter: blur(var(--blur));
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: left;
+  padding: 6px;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  visibility: hidden;
+  margin: 40px 20px;
+  width: fit-content;
+
+  #playback-bars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 30px;
+    margin: 0 30px;
+    transition: margin 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &.loading {
+      margin: 0 15px;
+    }
+
+    .bar {
+      width: 3px;
+      height: 4px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+      animation: bar-pulse 0.8s ease-in-out infinite;
+
+      &:nth-child(2) {
+        animation-delay: -0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: -0.4s;
+      }
+    }
+  }
+
+  #music-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  img#artwork {
+    height: 80px;
+    width: 80px;
+    border-radius: 12px;
+    margin-right: 10px;
+    object-fit: cover;
+    opacity: 1;
+    transition: width 0.5s ease, opacity 0.5s ease, margin-right 0.5s ease;
+
+    &.loading {
+      width: 0;
+      opacity: 0;
+      margin-right: 0;
+    }
+  }
+
+  div#artwork.loading {
+    width: 0;
+    height: 80px;
+    opacity: 0;
+    margin-right: 0;
+    transition: width 0.5s ease, opacity 0.5s ease, margin-right 0.5s ease;
+  }
+
+  #track {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 300px;
+    opacity: 1;
+    transition: max-width 0.5s ease, opacity 0.5s ease;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &.loading {
+      max-width: 0;
+      opacity: 0;
+    }
+
+    strong {
+      color: var(--primary-color);
+    }
+  }
+
+  #track p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  #track p:first-child {
+    font-weight: bold;
+  }
+
+  .track-album-sub {
+    font-size: 12px !important;
+    opacity: 0.7;
+  }
+
+  .discord-status-avatar-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+  }
+
+  .discord-avatar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #ffffff;
+  }
+
+  .discord-status-indicator {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--background-color, #09090b);
+  }
+
+  .indicator-online {
+    background-color: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  }
+
+  .indicator-idle {
+    background-color: #eab308;
+  }
+
+  .indicator-dnd {
+    background-color: #ef4444;
+  }
+
+  .indicator-offline {
+    background-color: #71717a;
+  }
+
+  /* ── Enhanced Live Music & Spotify Player Styles ── */
+  &.music-active {
+    border: 1px solid color-mix(in srgb, var(--primary-color) 40%, rgba(255, 255, 255, 0.15));
+    box-shadow: 0 12px 36px color-mix(in srgb, var(--primary-color) 20%, rgba(0, 0, 0, 0.4));
+  }
+
+  .discord-artwork-container {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  .music-album-art {
+    width: 84px !important;
+    height: 84px !important;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  .music-playing-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: #1db954;
+    color: #000;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--background-color, #09090b);
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.6);
+
+    .material-symbols-rounded {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .music-details-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 180px;
+    max-width: 280px;
+  }
+
+  .music-now-playing-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .music-title {
+    font-size: 14px !important;
+    font-weight: 700;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 !important;
+
+    strong {
+      color: var(--text-color) !important;
+    }
+  }
+
+  .music-artist {
+    font-size: 12.5px !important;
+    color: color-mix(in srgb, var(--text-color) 85%, transparent);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 !important;
+  }
+
+  /* Real-time Smooth Progress Bar */
+  .music-progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 6px;
+    width: 100%;
+  }
+
+  .music-progress-bar-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .music-progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), #1db954);
+    border-radius: 2px;
+    transition: width 0.3s linear;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--primary-color) 60%, transparent);
+  }
+
+  .music-timestamps-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 0.65;
+    font-variant-numeric: tabular-nums;
+  }
+}
