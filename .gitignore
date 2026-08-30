@@ -29,3 +29,6 @@ next-env.d.ts
 .vercel
 .netlify
 .git.demo
+.open-next
+.wrangler
+

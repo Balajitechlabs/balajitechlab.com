@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:cf": "opennextjs-cloudflare build",
+    "deploy:cf": "opennextjs-cloudflare build && wrangler pages deploy .open-next",
     "start": "next start",
     "lint": "eslint"
   },
@@ -27,12 +29,14 @@
     "sonner": "^2.0.8"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.4",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.127.1"
   }
 }
