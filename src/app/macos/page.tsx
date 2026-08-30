@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { appGroups, brewGroups } from "./apps";
 import Navbar from "@/components/Navbar";
 import UniverseWithinBackground from "@/components/UniverseWithinBackground";

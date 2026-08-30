@@ -7,7 +7,6 @@ import { soundFx } from "@/lib/soundFx";
 import {
   Sparkles,
   Layers,
-  Globe,
   Grid,
   FileText,
   Copy,

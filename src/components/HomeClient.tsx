@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, Suspense } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import DiscordMusicWidget from "@/components/DiscordMusicWidget";
 import SocialsChips from "@/components/SocialsChips";
