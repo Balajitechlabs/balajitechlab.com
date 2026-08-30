@@ -63,19 +63,30 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
     }
   }, [data, isLoading]);
 
-  // Group into 7-day columns (weeks)
-  const weeks: ActivityDay[][] = [];
-  let currentWeek: ActivityDay[] = [];
+  // Group days by Sunday-aligned weeks (matching official GitHub calendar grid)
+  const weeks: (ActivityDay | null)[][] = [];
+  if (data.length > 0) {
+    let currentWeek: (ActivityDay | null)[] = [];
 
-  for (const day of data) {
-    currentWeek.push(day);
-    if (currentWeek.length === 7) {
-      weeks.push(currentWeek);
-      currentWeek = [];
+    const firstDate = new Date(data[0].date);
+    const firstDayOfWeek = isNaN(firstDate.getTime()) ? 0 : firstDate.getUTCDay();
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      currentWeek.push(null);
     }
-  }
-  if (currentWeek.length > 0) {
-    weeks.push(currentWeek);
+
+    for (const day of data) {
+      currentWeek.push(day);
+      if (currentWeek.length === 7) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+      }
+    }
+    if (currentWeek.length > 0) {
+      while (currentWeek.length < 7) {
+        currentWeek.push(null);
+      }
+      weeks.push(currentWeek);
+    }
   }
 
   // Format date readable
@@ -146,21 +157,24 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
             style={{ display: "block" }}
           >
             {weeks.map((week, colIdx) =>
-              week.map((day, rowIdx) => (
-                <rect
-                  key={`${day.date}-${colIdx}-${rowIdx}`}
-                  x={colIdx * 13}
-                  y={rowIdx * 13}
-                  width={10}
-                  height={10}
-                  rx={2.5}
-                  ry={2.5}
-                  data-level={day.level}
-                  className={`gh-cal-rect level-${day.level}`}
-                  onMouseEnter={() => handleCellEnter(day)}
-                  onMouseLeave={handleCellLeave}
-                />
-              ))
+              week.map((day, rowIdx) => {
+                if (!day) return null;
+                return (
+                  <rect
+                    key={`${day.date}-${colIdx}-${rowIdx}`}
+                    x={colIdx * 13}
+                    y={rowIdx * 13}
+                    width={10}
+                    height={10}
+                    rx={2.5}
+                    ry={2.5}
+                    data-level={day.level}
+                    className={`gh-cal-rect level-${day.level}`}
+                    onMouseEnter={() => handleCellEnter(day)}
+                    onMouseLeave={handleCellLeave}
+                  />
+                );
+              })
             )}
           </svg>
         </div>
