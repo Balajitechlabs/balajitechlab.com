@@ -466,7 +466,7 @@ section:not(#intro, #apps) {
   touch-action: pan-y;
   transform: translateZ(0) !important;
   -webkit-transform: translateZ(0) !important;
-  background-color: var(--background-color-tr) !important;
+  background-color: rgba(20, 20, 20, 0.6) !important;
   -webkit-backdrop-filter: blur(24px) !important;
   backdrop-filter: blur(24px) !important;
   border-radius: var(--radius-out);
