@@ -54,14 +54,14 @@ nav {
         font-size: 0.75rem;
         text-align: center;
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        opacity: 0.5;
+        transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 1;
         box-sizing: border-box;
 
         .caption {
           height: 0px;
           scale: 0;
-          transition: all 0.35s ease-in-out;
+          transition: all 0.25s ease-in-out;
           color: var(--text-color);
           overflow: hidden;
         }
@@ -69,14 +69,13 @@ nav {
         i, .material-symbols-rounded {
           font-size: 1.5rem;
           color: var(--text-color);
-          transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.25s ease;
+          transition: transform 0.25s ease, color 0.25s ease;
         }
 
         @media screen and (min-width: 500px) {
           &:hover:not(.active) {
-            opacity: 1;
             background-color: color-mix(in srgb, var(--primary-color) 18%, rgba(255, 255, 255, 0.08));
-            transform: scale(1.08);
+            transform: scale(1.05);
 
             .caption {
               height: auto;
@@ -90,7 +89,6 @@ nav {
           background-color: var(--primary-color) !important;
           color: var(--background-color-primary) !important;
           opacity: 1 !important;
-          transform: scale(1.05);
 
           .caption {
             height: auto;
@@ -108,7 +106,7 @@ nav {
     }
   }
 
-  /* Responsive Mobile Bottom Dock (Fluid Dynamic Pill Expansion & Spring Physics) */
+  /* Responsive Mobile Bottom Dock (Completely Stable & Glitch-Free) */
   @media screen and (max-width: 750px) {
     bottom: 1.25rem !important;
     left: 50% !important;
@@ -116,69 +114,30 @@ nav {
     transform: translateX(-50%) translateZ(0) !important;
     -webkit-transform: translateX(-50%) translateZ(0) !important;
     border-radius: 999px;
-    padding: 4px 6px;
+    padding: 3px 6px;
 
     ul {
       flex-direction: row;
       margin: 0;
 
       li {
-        margin: 0 0.15em;
+        margin: 0.15em;
 
         a, button {
           width: 2.75em;
           height: 2.75em;
           padding: 0.25rem;
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 0.35rem;
-          transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, box-shadow 0.3s ease;
-          opacity: 0.55;
 
           .caption {
-            display: inline-block !important;
-            height: auto;
-            max-width: 0;
-            opacity: 0;
-            scale: 0.8;
-            margin-top: 0;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            overflow: hidden;
-            transition: max-width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease, scale 0.25s ease;
+            display: none !important;
           }
 
           i, .material-symbols-rounded {
             font-size: 1.35rem;
-            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          }
-
-          &.active {
-            width: auto;
-            min-width: 5.5em;
-            padding: 0 0.85rem;
-            opacity: 1 !important;
-            transform: scale(1.06);
-            box-shadow: 0 4px 14px color-mix(in srgb, var(--primary-color) 45%, transparent);
-
-            .caption {
-              max-width: 100px;
-              opacity: 1;
-              scale: 1;
-              color: var(--background-color-primary) !important;
-              font-weight: 600;
-            }
-
-            i, .material-symbols-rounded {
-              color: var(--background-color-primary) !important;
-              transform: scale(1.05);
-            }
-          }
-
-          &:active {
-            transform: scale(0.92);
           }
         }
       }
