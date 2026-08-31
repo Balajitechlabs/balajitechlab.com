@@ -7,6 +7,9 @@ import "@/styles/index/highlights.css";
 import "@/styles/index/form.css";
 import "@/styles/index/discord-music.css";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Home() {
   const updatesSection = (
     <section id="updates">
