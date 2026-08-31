@@ -54,14 +54,14 @@ nav {
         font-size: 0.75rem;
         text-align: center;
         cursor: pointer;
-        transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        opacity: 1;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0.5;
         box-sizing: border-box;
 
         .caption {
           height: 0px;
           scale: 0;
-          transition: all 0.25s ease-in-out;
+          transition: all 0.35s ease-in-out;
           color: var(--text-color);
           overflow: hidden;
         }
@@ -69,13 +69,14 @@ nav {
         i, .material-symbols-rounded {
           font-size: 1.5rem;
           color: var(--text-color);
-          transition: transform 0.25s ease, color 0.25s ease;
+          transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.25s ease;
         }
 
         @media screen and (min-width: 500px) {
           &:hover:not(.active) {
+            opacity: 1;
             background-color: color-mix(in srgb, var(--primary-color) 18%, rgba(255, 255, 255, 0.08));
-            transform: scale(1.05);
+            transform: scale(1.08);
 
             .caption {
               height: auto;
@@ -89,6 +90,7 @@ nav {
           background-color: var(--primary-color) !important;
           color: var(--background-color-primary) !important;
           opacity: 1 !important;
+          transform: scale(1.05);
 
           .caption {
             height: auto;
@@ -132,7 +134,8 @@ nav {
           align-items: center;
           justify-content: center;
           gap: 0.35rem;
-          transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+          transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, box-shadow 0.3s ease;
+          opacity: 0.55;
 
           .caption {
             display: inline-block !important;
@@ -144,19 +147,20 @@ nav {
             font-size: 0.75rem;
             white-space: nowrap;
             overflow: hidden;
-            transition: max-width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease, scale 0.25s ease;
+            transition: max-width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease, scale 0.25s ease;
           }
 
           i, .material-symbols-rounded {
             font-size: 1.35rem;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           }
 
           &.active {
             width: auto;
             min-width: 5.5em;
             padding: 0 0.85rem;
-            transform: scale(1.02);
+            opacity: 1 !important;
+            transform: scale(1.06);
             box-shadow: 0 4px 14px color-mix(in srgb, var(--primary-color) 45%, transparent);
 
             .caption {
@@ -174,7 +178,7 @@ nav {
           }
 
           &:active {
-            transform: scale(0.94);
+            transform: scale(0.92);
           }
         }
       }
