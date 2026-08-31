@@ -44,7 +44,7 @@ export default function Cursor() {
     // Global event delegation — 0 overhead, 0 mutation observers
     const handleMouseOver = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest(
-        "a, button, [role='button'], input, textarea, select, .clickable, .highlight-item, .tech-shield-badge, .photo-3d-card, .pill, .github-calendar, .gh-chip"
+        "a, button, [role='button'], input, textarea, select, .clickable, .highlight-item, .tech-shield-badge, .photo-3d-card, .pill, .gh-chip, .gh-cal-rect, rect[data-title]"
       );
 
       if (target) {
@@ -53,13 +53,15 @@ export default function Cursor() {
         if (title) {
           cursorText.textContent = title;
           cursorText.style.transform = "scale(1)";
+        } else {
+          cursorText.style.transform = "scale(0)";
         }
       }
     };
 
     const handleMouseOut = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest(
-        "a, button, [role='button'], input, textarea, select, .clickable, .highlight-item, .tech-shield-badge, .photo-3d-card, .pill, .github-calendar, .gh-chip"
+        "a, button, [role='button'], input, textarea, select, .clickable, .highlight-item, .tech-shield-badge, .photo-3d-card, .pill, .gh-chip, .gh-cal-rect, rect[data-title]"
       );
 
       if (target) {

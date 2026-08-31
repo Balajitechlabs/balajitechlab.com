@@ -20,7 +20,6 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
   const [data, setData] = useState<ActivityDay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const fetchCalendar = useCallback(() => {
     fetch(`/api/github-stats?t=${Date.now()}`, {
@@ -103,19 +102,6 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
     }
   };
 
-  const handleCellEnter = (day: ActivityDay) => {
-    if (!tooltipRef.current) return;
-    tooltipRef.current.innerHTML = `<strong>${day.count} ${day.count === 1 ? "contribution" : "contributions"}</strong> on ${formatDate(day.date)}`;
-    tooltipRef.current.style.opacity = "1";
-    tooltipRef.current.style.transform = "translateX(-50%) translateY(0)";
-  };
-
-  const handleCellLeave = () => {
-    if (!tooltipRef.current) return;
-    tooltipRef.current.style.opacity = "0";
-    tooltipRef.current.style.transform = "translateX(-50%) translateY(4px)";
-  };
-
   return (
     <div
       ref={containerRef}
@@ -123,18 +109,6 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
       style={{ position: "relative" }}
       aria-label="GitHub contribution calendar"
     >
-      {/* Zero Re-Render Floating Hover Tooltip */}
-      <div
-        ref={tooltipRef}
-        className="gh-cal-tooltip"
-        style={{
-          opacity: 0,
-          transform: "translateX(-50%) translateY(4px)",
-          transition: "opacity 0.15s ease, transform 0.15s ease",
-          pointerEvents: "none",
-        }}
-      />
-
       {isLoading || weeks.length === 0 ? (
         /* Simple Clean Loading Matrix */
         <div className="gh-cal-matrix" style={{ display: "flex", gap: "3px" }}>
@@ -159,6 +133,10 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
             {weeks.map((week, colIdx) =>
               week.map((day, rowIdx) => {
                 if (!day) return null;
+                const title =
+                  day.count === 0
+                    ? `No contributions on ${formatDate(day.date)}`
+                    : `${day.count} ${day.count === 1 ? "contribution" : "contributions"} on ${formatDate(day.date)}`;
                 return (
                   <rect
                     key={`${day.date}-${colIdx}-${rowIdx}`}
@@ -169,9 +147,8 @@ export default function GitHubCalendarCard({ isMounted: _isMounted }: GitHubCale
                     rx={2.5}
                     ry={2.5}
                     data-level={day.level}
+                    data-title={title}
                     className={`gh-cal-rect level-${day.level}`}
-                    onMouseEnter={() => handleCellEnter(day)}
-                    onMouseLeave={handleCellLeave}
                   />
                 );
               })
