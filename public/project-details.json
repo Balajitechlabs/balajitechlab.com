@@ -1,21 +1,19 @@
 {
   "quickdash": {
-    "id": "quickdash",
-    "repo": "balajitechlabs/quickdash",
-    "stars": 15,
-    "downloads": 1155,
-    "latestVersion": "v5.2.2-78",
+    "stars": 18,
+    "forks": 3,
+    "downloads": 1173,
+    "version": "v5.2.2-78",
     "latestReleaseAt": "2026-08-15T06:39:09Z",
-    "updatedAt": "2026-08-30T14:34:34.875Z"
+    "updatedAt": "2026-08-31T01:42:37.417Z"
   },
   "discord-music-card": {
-    "id": "discord-music-card",
-    "repo": "balajitechlabs/discord-music-card",
     "stars": 1,
+    "forks": 0,
     "downloads": 0,
-    "latestVersion": "v1.0.0",
-    "latestReleaseAt": "2026-08-20T16:49:38Z",
-    "updatedAt": "2026-08-30T14:40:00.000Z"
+    "version": "",
+    "latestReleaseAt": "2026-08-20T16:49:39Z",
+    "updatedAt": "2026-08-31T01:42:37.807Z"
   },
   "balajitechlabs": {
     "id": "balajitechlabs",
@@ -27,22 +25,20 @@
     "updatedAt": "2026-08-30T14:40:00.000Z"
   },
   "universal-updater": {
-    "id": "universal-updater",
-    "repo": "balajitechlabs/universal-updater-raycast",
     "stars": 1,
+    "forks": 0,
     "downloads": 0,
-    "latestVersion": "v1.0.0",
-    "latestReleaseAt": "2026-07-20T07:55:39Z",
-    "updatedAt": "2026-08-30T14:45:00.000Z"
+    "version": "",
+    "latestReleaseAt": "2026-08-04T20:57:42Z",
+    "updatedAt": "2026-08-31T01:42:38.368Z"
   },
   "password-generator": {
-    "id": "password-generator",
-    "repo": "balajitechlabs/password-genaration",
     "stars": 2,
+    "forks": 0,
     "downloads": 0,
-    "latestVersion": "v1.0.0",
-    "latestReleaseAt": "2026-03-13T10:42:01Z",
-    "updatedAt": "2026-08-30T14:50:00.000Z"
+    "version": "",
+    "latestReleaseAt": "2026-03-13T10:42:46Z",
+    "updatedAt": "2026-08-31T01:42:39.266Z"
   },
   "old-portfolio": {
     "id": "old-portfolio",
@@ -54,12 +50,11 @@
     "updatedAt": "2026-08-30T14:50:00.000Z"
   },
   "play-console-tools": {
-    "id": "play-console-tools",
-    "repo": "balajitechlabs/google-play-console-tools",
     "stars": 3,
+    "forks": 0,
     "downloads": 0,
-    "latestVersion": "v1.0.0",
+    "version": "",
     "latestReleaseAt": "2026-03-15T04:02:06Z",
-    "updatedAt": "2026-08-30T14:45:00.000Z"
+    "updatedAt": "2026-08-31T01:42:38.855Z"
   }
 }
