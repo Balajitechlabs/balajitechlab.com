@@ -106,7 +106,7 @@ nav {
     }
   }
 
-  /* Responsive Mobile Bottom Dock (Completely Stable & Glitch-Free) */
+  /* Responsive Mobile Bottom Dock (Fluid Spring Animations & Touch Haptics) */
   @media screen and (max-width: 750px) {
     bottom: 1.25rem !important;
     left: 50% !important;
@@ -114,7 +114,7 @@ nav {
     transform: translateX(-50%) translateZ(0) !important;
     -webkit-transform: translateX(-50%) translateZ(0) !important;
     border-radius: 999px;
-    padding: 3px 6px;
+    padding: 4px 8px;
 
     ul {
       flex-direction: row;
@@ -123,10 +123,11 @@ nav {
       li {
         margin: 0.15em;
 
-        a {
+        a, button {
           width: 2.75em;
           height: 2.75em;
           padding: 0.25rem;
+          transition: background-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 
           .caption {
             display: none !important;
@@ -134,6 +135,20 @@ nav {
 
           i, .material-symbols-rounded {
             font-size: 1.35rem;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+          }
+
+          &.active {
+            transform: scale(1.12);
+            box-shadow: 0 4px 14px color-mix(in srgb, var(--primary-color) 45%, transparent);
+
+            i, .material-symbols-rounded {
+              transform: scale(1.08);
+            }
+          }
+
+          &:active {
+            transform: scale(0.92);
           }
         }
       }
