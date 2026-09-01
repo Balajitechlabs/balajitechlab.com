@@ -195,8 +195,10 @@ export default function HomeClient({
           });
         } catch {}
       } else {
+        const errorData = await res.json().catch(() => null);
         setFormStatus("error");
-        toast.error("Failed to send message. Please try again.");
+        soundFx.playError();
+        toast.error(errorData?.error || "Failed to send message. Please try again.");
       }
     } catch (error) {
       console.error("Contact submit error:", error);

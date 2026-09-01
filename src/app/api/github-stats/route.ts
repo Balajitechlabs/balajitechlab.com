@@ -77,7 +77,19 @@ function calcStreaks(days: ContributionDay[]): {
 
 export async function GET() {
   try {
-    const token = process.env.GITHUB_TOKEN;
+    let token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+
+    // Support Cloudflare Workers / Pages runtime bindings via @opennextjs/cloudflare
+    try {
+      const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+      const cfContext = getCloudflareContext();
+      if (cfContext?.env) {
+        const env = cfContext.env as Record<string, string | undefined>;
+        token = env.GITHUB_TOKEN || env.GH_TOKEN || token;
+      }
+    } catch {
+      // Local Next.js node environment
+    }
 
     // 1. Primary Engine: Direct Authenticated GitHub GraphQL API
     if (token) {

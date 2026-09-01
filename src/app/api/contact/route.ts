@@ -12,8 +12,32 @@ export async function POST(req: Request) {
       );
     }
 
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    let token = process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_TOKEN || process.env.TELEGRAM_BOT_KEY;
+    let chatId = process.env.TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHATID;
+
+    // Support Cloudflare Workers / Pages runtime bindings via @opennextjs/cloudflare
+    try {
+      const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+      const cfContext = getCloudflareContext();
+      if (cfContext?.env) {
+        const env = cfContext.env as Record<string, string | undefined>;
+        token = env.TELEGRAM_BOT_TOKEN || env.TELEGRAM_TOKEN || env.TELEGRAM_BOT_KEY || token;
+        chatId = env.TELEGRAM_CHAT_ID || env.TELEGRAM_CHATID || chatId;
+      }
+    } catch {
+      // Running in local Next.js node environment without Cloudflare context
+    }
+
+    if (!token || !chatId) {
+      console.error("TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing in environment variables.");
+      return NextResponse.json(
+        {
+          error:
+            "Telegram notification service is not configured. Please add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in Cloudflare Workers / Pages Settings > Variables and Secrets.",
+        },
+        { status: 503 }
+      );
+    }
 
     // Platform URL generation
     let socialInfo = "None provided";
@@ -62,33 +86,26 @@ export async function POST(req: Request) {
       `💬 <b>Message:</b>\n<i>${escapeHtml(message)}</i>\n\n` +
       `⏰ <b>Received:</b> ${now} IST`;
 
-    if (token && chatId) {
-      const response = await fetch(
-        `https://api.telegram.org/bot${token}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: telegramText,
-            parse_mode: "HTML",
-            disable_web_page_preview: true,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Telegram bot API error:", errText);
-        return NextResponse.json(
-          { error: "Failed to dispatch notification to Telegram." },
-          { status: 502 }
-        );
+    const response = await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: telegramText,
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        }),
       }
-    } else {
-      console.warn(
-        "TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing in environment variables. Logged message:",
-        { name, email, platform, handle, message }
+    );
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error("Telegram bot API error:", errText);
+      return NextResponse.json(
+        { error: `Telegram API error: ${errText}` },
+        { status: 502 }
       );
     }
 
