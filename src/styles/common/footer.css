@@ -386,6 +386,94 @@
   opacity: 0.4;
 }
 
+/* ── Interactive Love & Repo Tag ── */
+.footer-love-tag-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0 0.75rem;
+}
+
+.footer-love-tag {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-out);
+  text-decoration: none;
+  font-family: var(--font-family);
+  font-size: 0.88rem;
+  color: var(--text-color);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid color-mix(in srgb, var(--primary-color) 25%, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transform: translateZ(0);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer-love-tag:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: color-mix(in srgb, var(--primary-color) 70%, transparent);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--primary-color) 25%, rgba(0, 0, 0, 0.4));
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.love-heart-pulse {
+  display: inline-block;
+  font-size: 1.1rem;
+  animation: heartPulse 1.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.3);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.2);
+  }
+}
+
+.love-tag-text {
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.love-tag-text b {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.love-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  background: color-mix(in srgb, var(--primary-color) 16%, rgba(0, 0, 0, 0.4));
+  border: 1px solid color-mix(in srgb, var(--primary-color) 35%, transparent);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: monospace;
+  color: var(--primary-color);
+  letter-spacing: -0.02em;
+}
+
+.love-tag-badge i {
+  font-size: 0.9rem;
+}
+
 /* ── Responsive Adaptations ── */
 @media screen and (max-width: 850px) {
   .portfolio-footer-card {

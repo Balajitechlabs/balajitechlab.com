@@ -105,6 +105,7 @@ END:VCARD`;
     <div className="resume-container">
       {/* ── Recruiter & Actions Toolbar (Hidden on Print) ── */}
       <div className="resume-toolbar">
+        <div className="resume-ambient-beam" aria-hidden="true" />
         <div className="resume-toolbar-group">
           {showModeToggle && onSwitchMode && (
             <button
@@ -196,6 +197,7 @@ END:VCARD`;
 
       {/* ── ATS-Optimized Clean Resume Paper ── */}
       <article className="resume-paper">
+        <div className="resume-ambient-beam" aria-hidden="true" />
         {/* ── Header ── */}
         <header className="resume-header">
           <div className="resume-header-top">

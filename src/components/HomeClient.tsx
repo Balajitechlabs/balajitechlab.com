@@ -295,6 +295,54 @@ export default function HomeClient({
     };
   }, []);
 
+  // ── Global Power-User Keyboard Shortcuts (V, R, T) ──
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      if (e.key === "r" || e.key === "R") {
+        soundFx.playPop();
+        setViewMode("resume");
+        if (typeof window !== "undefined") {
+          window.history.replaceState(null, "", "/?mode=resume");
+        }
+      } else if (e.key === "v" || e.key === "V") {
+        soundFx.playPop();
+        setViewMode("visual");
+        if (typeof window !== "undefined") {
+          window.history.replaceState(null, "", "/");
+        }
+      } else if (e.key === "t" || e.key === "T") {
+        soundFx.playClick();
+        setActiveTheme((prev) => {
+          const next =
+            prev === "topographic"
+              ? "universe"
+              : prev === "universe"
+              ? "voronoi"
+              : "topographic";
+          try {
+            localStorage.setItem("btl_theme", next);
+          } catch {}
+          return next;
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   // ── Ensure all items in visual mode are fully visible on tab switches ──
   useEffect(() => {
     if (viewMode === "visual") {
@@ -505,12 +553,13 @@ export default function HomeClient({
                 >
                   <button
                     onClick={() => {
-                      soundFx.playClick();
+                      soundFx.playPop();
                       setViewMode("visual");
                       if (typeof window !== "undefined") {
                         window.history.replaceState(null, "", "/");
                       }
                     }}
+                    title="Press 'V' on keyboard"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -532,15 +581,30 @@ export default function HomeClient({
                       rocket_launch
                     </span>
                     <span>Visual Experience</span>
+                    <kbd
+                      style={{
+                        fontSize: "0.65rem",
+                        padding: "1px 5px",
+                        borderRadius: "4px",
+                        background: viewMode === "visual" ? "rgba(0,0,0,0.18)" : "rgba(255,255,255,0.12)",
+                        border: "1px solid rgba(255,255,255,0.2)",
+                        marginLeft: "2px",
+                        fontFamily: "monospace",
+                        fontWeight: 700,
+                      }}
+                    >
+                      V
+                    </kbd>
                   </button>
                   <button
                     onClick={() => {
-                      soundFx.playClick();
+                      soundFx.playPop();
                       setViewMode("resume");
                       if (typeof window !== "undefined") {
                         window.history.replaceState(null, "", "/?mode=resume");
                       }
                     }}
+                    title="Press 'R' on keyboard"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -562,6 +626,20 @@ export default function HomeClient({
                       description
                     </span>
                     <span>Executive Resume</span>
+                    <kbd
+                      style={{
+                        fontSize: "0.65rem",
+                        padding: "1px 5px",
+                        borderRadius: "4px",
+                        background: viewMode === "resume" ? "rgba(0,0,0,0.18)" : "rgba(255,255,255,0.12)",
+                        border: "1px solid rgba(255,255,255,0.2)",
+                        marginLeft: "2px",
+                        fontFamily: "monospace",
+                        fontWeight: 700,
+                      }}
+                    >
+                      R
+                    </kbd>
                   </button>
                 </div>
               </div>

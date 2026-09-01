@@ -1,9 +1,10 @@
-/* ── Executive 1-Page Minimalist Resume Styles ─────────────── */
+/* ── Executive 1-Page Minimalist Resume (Exact Footer Card Design System) ── */
 
 .resume-container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem 6rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto 3.5rem auto;
+  padding: 0 1rem;
   font-family: var(--font-family);
   color: var(--text-color);
   box-sizing: border-box;
@@ -21,24 +22,37 @@
   }
 }
 
-/* ── Hardware-Accelerated Frosted Glass Action Toolbar ───────── */
+/* ── Hardware-Accelerated Frosted Glass Action Toolbar (Matches Footer) ── */
 .resume-toolbar {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1.75rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-out);
+  background-color: var(--background-color-tr) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) !important;
+  backdrop-filter: blur(var(--blur)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  overflow: hidden !important;
+  contain: paint;
+  will-change: transform;
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 2rem;
-  padding: 0.85rem 1.25rem;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
-  background-color: rgba(20, 20, 20, 0.6) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  backdrop-filter: blur(24px) !important;
-  overflow: hidden;
-  border-radius: var(--radius-out);
-  border: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-toolbar:hover {
+  border-color: color-mix(in srgb, var(--primary-color) 40%, transparent);
+  box-shadow: 0 20px 48px color-mix(in srgb, var(--primary-color) 15%, rgba(0, 0, 0, 0.35));
 }
 
 .resume-toolbar-group {
@@ -46,6 +60,24 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Top Subtle Ambient Lighting */
+.resume-ambient-beam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--primary-color) 60%, transparent) 50%,
+    transparent 100%
+  );
+  box-shadow: 0 0 18px color-mix(in srgb, var(--primary-color) 80%, transparent);
+  pointer-events: none;
 }
 
 /* ── Exact Socials-Pill Button Design (M3 Expressive Tonal) ─── */
@@ -141,18 +173,35 @@
   }
 }
 
-/* ── Main Resume Paper Card ────────────────────────────────── */
+/* ── Main Resume Paper Card (Exact Architecture of .portfolio-footer-card) ── */
 .resume-paper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  border-radius: var(--radius-out);
+  background-color: var(--background-color-tr) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) !important;
+  backdrop-filter: blur(var(--blur)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  text-align: left;
   transform: translateZ(0) !important;
   -webkit-transform: translateZ(0) !important;
-  background-color: rgba(12, 12, 16, 0.72) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-  backdrop-filter: blur(28px) saturate(180%) !important;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--primary-color) 18%, rgba(255, 255, 255, 0.12));
-  border-radius: var(--radius-out);
-  padding: 3rem 2.75rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden !important;
+  contain: paint;
+  will-change: transform;
+  position: relative;
+  z-index: 10;
+  color: var(--text-color);
+  font-family: var(--font-family);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-paper:hover {
+  border-color: color-mix(in srgb, var(--primary-color) 40%, transparent);
+  box-shadow: 0 20px 48px color-mix(in srgb, var(--primary-color) 15%, rgba(0, 0, 0, 0.35));
 }
 
 /* ── Resume Header ─────────────────────────────────────────── */
@@ -161,7 +210,7 @@
   flex-direction: column;
   gap: 0.6rem;
   padding-bottom: 1.75rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--text-color) 14%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
   margin-bottom: 2rem;
 }
 
@@ -178,23 +227,24 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   margin: 0;
-  color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+  color: var(--text-color);
+  font-family: var(--font-family);
 }
 
 .resume-brand {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--primary-color);
-  text-shadow: 0 0 14px color-mix(in srgb, var(--primary-color) 45%, transparent);
+  font-family: var(--font-family);
 }
 
 .resume-subtitle {
   font-size: 1.15rem;
   font-weight: 600;
-  color: #f1f5f9;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  color: var(--text-color);
+  opacity: 0.9;
   margin: 0;
+  font-family: var(--font-family);
 }
 
 .resume-contact-bar {
@@ -202,9 +252,10 @@
   flex-wrap: wrap;
   gap: 1.25rem;
   font-size: 0.88rem;
-  color: #cbd5e1;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  color: var(--text-color);
+  opacity: 0.8;
   margin-top: 0.4rem;
+  font-family: var(--font-family);
 }
 
 .resume-contact-item {
@@ -232,7 +283,6 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--primary-color);
-  text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color) 40%, transparent);
   margin: 0 0 1rem;
   display: flex;
   align-items: center;
@@ -245,9 +295,10 @@
 .resume-summary {
   font-size: 0.95rem;
   line-height: 1.65;
-  color: #f1f5f9;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  color: var(--text-color);
+  opacity: 0.92;
   margin: 0 0 1.25rem;
+  font-family: var(--font-family);
 }
 
 .resume-skills-grid {
@@ -257,21 +308,24 @@
 }
 
 .resume-skill-card {
-  background: rgba(20, 20, 26, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 0.85rem 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-out);
+  padding: 0.9rem 1.1rem;
+  transition: all 0.25s ease;
+}
+
+.resume-skill-card:hover {
+  border-color: color-mix(in srgb, var(--primary-color) 35%, transparent);
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 .resume-skill-title {
   font-size: 0.88rem;
   font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-  margin: 0 0 0.4rem;
+  color: var(--text-color);
+  margin: 0 0 0.45rem;
+  font-family: var(--font-family);
 }
 
 .resume-skill-tags {
@@ -283,12 +337,12 @@
 .resume-skill-tag {
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 0.22rem 0.6rem;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, 0.1));
+  padding: 0.25rem 0.65rem;
+  background: color-mix(in srgb, var(--primary-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary-color) 30%, transparent);
   border-radius: 999px;
-  color: #f8fafc;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  color: var(--primary-color);
+  font-family: var(--font-family);
 }
 
 /* ── Project / Experience Items ────────────────────────────── */
@@ -316,31 +370,33 @@
 .resume-item-title {
   font-size: 1.08rem;
   font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
+  color: var(--text-color);
   margin: 0;
+  font-family: var(--font-family);
 }
 
 .resume-item-role {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--primary-color);
-  text-shadow: 0 0 8px color-mix(in srgb, var(--primary-color) 35%, transparent);
+  font-family: var(--font-family);
 }
 
 .resume-item-date {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #94a3b8;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  color: var(--text-color);
+  opacity: 0.65;
+  font-family: var(--font-family);
 }
 
 .resume-item-desc {
   font-size: 0.9rem;
   line-height: 1.55;
-  color: #e2e8f0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  color: var(--text-color);
+  opacity: 0.9;
   margin: 0 0 0.5rem;
+  font-family: var(--font-family);
 }
 
 .resume-item-bullets {
@@ -348,8 +404,9 @@
   padding-left: 1.25rem;
   font-size: 0.88rem;
   line-height: 1.55;
-  color: #e2e8f0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  color: var(--text-color);
+  opacity: 0.88;
+  font-family: var(--font-family);
 }
 
 .resume-item-bullets li {
@@ -374,6 +431,7 @@
   nav,
   #cursor,
   .resume-toolbar,
+  .resume-ambient-beam,
   .warp-canvas,
   header,
   footer {
@@ -447,7 +505,7 @@
 /* ── Mobile Responsive Adjustments ─────────────────────────── */
 @media (max-width: 768px) {
   .resume-container {
-    padding: 1.5rem 1rem 5rem;
+    padding: 1rem 0.75rem 4rem;
   }
 
   .resume-paper {
@@ -461,6 +519,7 @@
   .resume-toolbar {
     flex-direction: column;
     align-items: stretch;
+    padding: 1rem;
   }
 
   .resume-toolbar-group {

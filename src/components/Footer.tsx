@@ -196,6 +196,30 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ── Interactive Love & Repository Tag ── */}
+        <div className="footer-love-tag-wrapper">
+          <a
+            href="https://github.com/balajitechlabs/balajitechlab.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-love-tag"
+            onClick={() => soundFx.playPop()}
+            title="View open-source portfolio repository on GitHub"
+          >
+            <span className="love-heart-pulse" aria-hidden="true">
+              ❤️
+            </span>
+            <span className="love-tag-text">
+              Crafted with passion in <b>Bengaluru, Karnataka 🇮🇳</b>
+            </span>
+            <span className="love-tag-badge">
+              <i className="fa-brands fa-github" />
+              <span>balajitechlabs/balajitechlab.com</span>
+              <span className="arrow-tag">↗</span>
+            </span>
+          </a>
+        </div>
+
         {/* Bottom Legal Row */}
         <div className="footer-bottom-row">
           <p className="footer-copy-left">
