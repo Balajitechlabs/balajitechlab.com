@@ -50,9 +50,10 @@
     .bar {
       width: 3px;
       height: 4px;
-      background-color: var(--primary-color);
+      background-color: var(--dynamic-music-color, var(--primary-color));
       border-radius: 2px;
       animation: bar-pulse 0.8s ease-in-out infinite;
+      box-shadow: 0 0 6px color-mix(in srgb, var(--dynamic-music-color, var(--primary-color)) 60%, transparent);
 
       &:nth-child(2) {
         animation-delay: -0.2s;
@@ -231,9 +232,10 @@
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: var(--primary-color);
+    color: var(--dynamic-music-color, var(--primary-color));
     text-transform: uppercase;
-    opacity: 0.9;
+    opacity: 0.95;
+    transition: color 0.5s ease;
   }
 
   .music-title {
@@ -278,10 +280,14 @@
 
   .music-progress-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), #1db954);
+    background: linear-gradient(
+      90deg,
+      var(--dynamic-music-color, var(--primary-color)),
+      color-mix(in srgb, var(--dynamic-music-color, var(--primary-color)) 70%, #ffffff)
+    );
     border-radius: 2px;
-    transition: width 0.3s linear;
-    box-shadow: 0 0 8px color-mix(in srgb, var(--primary-color) 60%, transparent);
+    transition: width 0.3s linear, background 0.5s ease;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--dynamic-music-color, var(--primary-color)) 60%, transparent);
   }
 
   .music-timestamps-row {
@@ -291,5 +297,37 @@
     font-weight: 600;
     opacity: 0.65;
     font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ── Mobile Responsive Adaptations ── */
+@media screen and (max-width: 600px) {
+  #last {
+    margin: 20px auto 10px auto !important;
+    width: calc(100vw - 2rem) !important;
+    max-width: 360px !important;
+    box-sizing: border-box !important;
+    padding: 8px !important;
+  }
+
+  #music-holder {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .music-details-pane {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    max-width: calc(100vw - 150px) !important;
+  }
+
+  #last #playback-bars {
+    margin: 0 8px 0 auto !important;
+  }
+
+  #last img#artwork {
+    width: 64px !important;
+    height: 64px !important;
+    margin-right: 8px !important;
   }
 }

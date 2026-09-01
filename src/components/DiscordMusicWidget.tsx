@@ -74,9 +74,72 @@ interface LastPlayedTrack {
   playedAt: number;
 }
 
+async function extractAlbumColor(imageUrl: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    try {
+      if (!imageUrl || typeof window === "undefined") return resolve(null);
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = imageUrl;
+
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = 16;
+          canvas.height = 16;
+          const ctx = canvas.getContext("2d", { willReadFrequently: true });
+          if (!ctx) return resolve(null);
+
+          ctx.drawImage(img, 0, 0, 16, 16);
+          const data = ctx.getImageData(0, 0, 16, 16).data;
+
+          let rTotal = 0,
+            gTotal = 0,
+            bTotal = 0,
+            count = 0;
+
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            const a = data[i + 3];
+
+            if (a > 128) {
+              const max = Math.max(r, g, b);
+              const min = Math.min(r, g, b);
+              const diff = max - min;
+              if (max > 30 && min < 240) {
+                const weight = diff > 25 ? 4 : 1;
+                rTotal += r * weight;
+                gTotal += g * weight;
+                bTotal += b * weight;
+                count += weight;
+              }
+            }
+          }
+
+          if (count === 0) return resolve(null);
+          const avgR = Math.round(rTotal / count);
+          const avgG = Math.round(gTotal / count);
+          const avgB = Math.round(bTotal / count);
+
+          resolve(`rgb(${avgR}, ${avgG}, ${avgB})`);
+        } catch {
+          resolve(null);
+        }
+      };
+
+      img.onerror = () => resolve(null);
+    } catch {
+      resolve(null);
+    }
+  });
+}
+
 export default function DiscordMusicWidget() {
   const [presence, setPresence] = useState<DiscordPresence | null>(null);
   const [lastPlayed, setLastPlayed] = useState<LastPlayedTrack | null>(null);
+  const [dynamicGlowColor, setDynamicGlowColor] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [now, setNow] = useState(Date.now());
   const wsRef = useRef<WebSocket | null>(null);
@@ -285,12 +348,48 @@ export default function DiscordMusicWidget() {
 
   const destinationHref = "https://github.com/balajitechlabs/discord-music-card";
 
-  const coverImageUrl = spotify?.album_art_url || presence?.activityImage || "/assets/img/btl-topographic-avatar.png";
-  const songTitle = sanitizeMusicBrand(spotify?.song || presence?.activityDetails || presence?.activityName || "Music Player");
-  const songArtist = sanitizeMusicBrand(spotify?.artist || presence?.activityState || presence?.activityName || "balajitechlabs");
-  const albumOrSub = sanitizeMusicBrand(spotify?.album || (isCustomMusic ? (presence?.activityName || "BTL-Music") : "balajitechlabs"));
-
   const hasLastPlayed = !isPlayingMusic && !presence?.activityName && Boolean(lastPlayed);
+  const coverImageUrl =
+    spotify?.album_art_url ||
+    presence?.activityImage ||
+    (hasLastPlayed && lastPlayed
+      ? lastPlayed.album_art_url
+      : "/assets/img/btl-topographic-avatar.png");
+  const songTitle = sanitizeMusicBrand(
+    spotify?.song ||
+      presence?.activityDetails ||
+      presence?.activityName ||
+      "Music Player"
+  );
+  const songArtist = sanitizeMusicBrand(
+    spotify?.artist ||
+      presence?.activityState ||
+      presence?.activityName ||
+      "balajitechlabs"
+  );
+  const albumOrSub = sanitizeMusicBrand(
+    spotify?.album ||
+      (isCustomMusic ? presence?.activityName || "BTL-Music" : "balajitechlabs")
+  );
+
+  // ── Dynamically extract vibrant accent color from album artwork ──
+  useEffect(() => {
+    let isCurrent = true;
+    if (coverImageUrl && !coverImageUrl.includes("btl-topographic-avatar.png")) {
+      extractAlbumColor(coverImageUrl).then((color) => {
+        if (isCurrent && color) {
+          setDynamicGlowColor(color);
+        }
+      });
+    } else {
+      setDynamicGlowColor(null);
+    }
+    return () => {
+      isCurrent = false;
+    };
+  }, [coverImageUrl]);
+
+  const activeAccent = dynamicGlowColor || "var(--primary-color)";
 
   return (
     <a
@@ -307,7 +406,27 @@ export default function DiscordMusicWidget() {
       }
       className="item"
     >
-      <div id="last" className={`show discord-presence-badge status-${status} ${isPlayingMusic ? "music-active" : ""}`}>
+      <div
+        id="last"
+        className={`show discord-presence-badge status-${status} ${isPlayingMusic ? "music-active" : ""}`}
+        style={
+          {
+            "--dynamic-music-color": activeAccent,
+            boxShadow:
+              isPlayingMusic || hasLastPlayed
+                ? dynamicGlowColor
+                  ? `0 14px 40px color-mix(in srgb, ${dynamicGlowColor} 30%, rgba(0, 0, 0, 0.4)), 0 0 24px color-mix(in srgb, ${dynamicGlowColor} 20%, transparent)`
+                  : undefined
+                : undefined,
+            borderColor:
+              isPlayingMusic || hasLastPlayed
+                ? dynamicGlowColor
+                  ? `color-mix(in srgb, ${dynamicGlowColor} 50%, rgba(255, 255, 255, 0.1))`
+                  : undefined
+                : undefined,
+          } as React.CSSProperties
+        }
+      >
         <div id="music-holder">
           {isPlayingMusic ? (
             <div className="discord-artwork-container">
