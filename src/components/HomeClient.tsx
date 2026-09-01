@@ -14,6 +14,7 @@ import WarpShaderBackground from "@/components/WarpShaderBackground";
 import UniverseWithinBackground from "@/components/UniverseWithinBackground";
 import VoronoiShaderBackground from "@/components/VoronoiShaderBackground";
 import DeveloperPalette from "@/components/DeveloperPalette";
+import ExecutiveResume from "@/components/ExecutiveResume";
 import confetti from "canvas-confetti";
 import { toast } from "sonner";
 import { soundFx } from "@/lib/soundFx";
@@ -31,6 +32,7 @@ interface HomeClientProps {
 export default function HomeClient({
   updatesSection,
 }: HomeClientProps) {
+  const [viewMode, setViewMode] = useState<"visual" | "resume">("visual");
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -222,6 +224,13 @@ export default function HomeClient({
   useEffect(() => {
     setIsMounted(true);
     try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "resume") {
+        setViewMode("resume");
+      }
+    } catch {}
+
+    try {
       const savedTheme = localStorage.getItem("btl_theme") as
         | "topographic"
         | "universe"
@@ -255,13 +264,13 @@ export default function HomeClient({
         items[i].style.opacity = "1";
         items[i].style.transform = "translateY(0)";
         i++;
-        setTimeout(animate, 150);
+        setTimeout(animate, 60);
       }
     };
 
     setTimeout(() => {
       animate();
-    }, 100);
+    }, 50);
 
     const handleScroll = () => {
       const scroll = window.scrollY;
@@ -285,6 +294,20 @@ export default function HomeClient({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // ── Ensure all items in visual mode are fully visible on tab switches ──
+  useEffect(() => {
+    if (viewMode === "visual") {
+      requestAnimationFrame(() => {
+        const items = document.querySelectorAll(".item") as NodeListOf<HTMLElement>;
+        items.forEach((item) => {
+          item.style.opacity = "1";
+          item.style.transform = "translateY(0)";
+          item.style.scale = "1";
+        });
+      });
+    }
+  }, [viewMode]);
 
   // ── 1. Lenis Smooth Momentum Inertial Scrolling ──
   useEffect(() => {
@@ -465,17 +488,102 @@ export default function HomeClient({
                 <span className="name-secondary">Balaji.S</span>
               </h1>
 
+              {/* ── View Mode Switcher Pill ── */}
+              <div className="item" style={{ margin: "0.85rem auto 1.15rem", display: "flex", justifyContent: "center" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    padding: "4px",
+                    borderRadius: "999px",
+                    backgroundColor: "rgba(20, 20, 20, 0.75)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    border: "1px solid color-mix(in srgb, var(--text-color) 14%, transparent)",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.35)",
+                    zIndex: 20,
+                  }}
+                >
+                  <button
+                    onClick={() => {
+                      soundFx.playClick();
+                      setViewMode("visual");
+                      if (typeof window !== "undefined") {
+                        window.history.replaceState(null, "", "/");
+                      }
+                    }}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "6px 14px",
+                      borderRadius: "999px",
+                      border: "none",
+                      fontSize: "0.82rem",
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                      background: viewMode === "visual" ? "var(--primary-color)" : "transparent",
+                      color: viewMode === "visual" ? "#000000" : "var(--text-color)",
+                      boxShadow: viewMode === "visual" ? "0 2px 10px color-mix(in srgb, var(--primary-color) 35%, transparent)" : "none",
+                    }}
+                  >
+                    <span className="material-symbols-rounded" style={{ fontSize: "16px" }}>
+                      rocket_launch
+                    </span>
+                    <span>Visual Experience</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      soundFx.playClick();
+                      setViewMode("resume");
+                      if (typeof window !== "undefined") {
+                        window.history.replaceState(null, "", "/?mode=resume");
+                      }
+                    }}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "6px 14px",
+                      borderRadius: "999px",
+                      border: "none",
+                      fontSize: "0.82rem",
+                      fontFamily: "var(--font-family)",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                      background: viewMode === "resume" ? "var(--primary-color)" : "transparent",
+                      color: viewMode === "resume" ? "#000000" : "var(--text-color)",
+                      boxShadow: viewMode === "resume" ? "0 2px 10px color-mix(in srgb, var(--primary-color) 35%, transparent)" : "none",
+                    }}
+                  >
+                    <span className="material-symbols-rounded" style={{ fontSize: "16px" }}>
+                      description
+                    </span>
+                    <span>Executive Resume</span>
+                  </button>
+                </div>
+              </div>
 
-              <SocialsChips />
-              <GitHubCalendarCard isMounted={isMounted} />
-              <GitHubChips />
-              <DiscordMusicWidget />
-
+              <div style={{ display: viewMode === "visual" ? "contents" : "none" }}>
+                <SocialsChips />
+                <GitHubCalendarCard isMounted={isMounted} />
+                <GitHubChips />
+                <DiscordMusicWidget />
+              </div>
             </div>
           </div>
         </section>
 
-        {updatesSection}
+        {/* ── Visual Experience Sections (Preserved in DOM for instant 0ms switching) ── */}
+        <div
+          id="visual-experience-sections"
+          style={{
+            display: viewMode === "visual" ? "block" : "none",
+          }}
+        >
+          {updatesSection}
 
         <section id="projects">
           <div className="heading item">
@@ -853,10 +961,21 @@ export default function HomeClient({
             </div>
           </div>
         </section>
-
-        {/* Full Rich Animated Developer Footer */}
-        <Footer />
       </div>
-    </>
+
+      {/* ── Executive Resume View (Preserved in DOM for instant 0ms switching) ── */}
+      <div
+        id="executive-resume-section"
+        style={{
+          display: viewMode === "resume" ? "block" : "none",
+        }}
+      >
+        <ExecutiveResume onSwitchMode={setViewMode} showModeToggle={false} />
+      </div>
+
+      {/* Full Rich Animated Developer Footer */}
+      <Footer />
+    </div>
+  </>
   );
 }

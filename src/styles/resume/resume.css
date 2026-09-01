@@ -1,0 +1,469 @@
+/* ── Executive 1-Page Minimalist Resume Styles ─────────────── */
+
+.resume-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 6rem;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  box-sizing: border-box;
+  animation: resumeFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes resumeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Hardware-Accelerated Frosted Glass Action Toolbar ───────── */
+.resume-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 0.85rem 1.25rem;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  background-color: rgba(20, 20, 20, 0.6) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  backdrop-filter: blur(24px) !important;
+  overflow: hidden;
+  border-radius: var(--radius-out);
+  border: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.resume-toolbar-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Exact Socials-Pill Button Design (M3 Expressive Tonal) ─── */
+.resume-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-out);
+  border: none;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-family: var(--font-family);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+
+  /* GPU-composited properties only — zero layout reflow on hover */
+  transition:
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.25s ease,
+    filter 0.25s ease,
+    opacity 0.25s ease;
+  will-change: transform;
+}
+
+.resume-pill-btn i,
+.resume-pill-btn .material-symbols-rounded {
+  font-size: 1.15rem;
+  width: 1.15rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── M3 Pastel Tonal Pill Themes matching Socials Chips ──────── */
+
+/* Visual Mode Pill */
+.resume-pill-btn[data-pill="visual"] {
+  background: light-dark(#6366f1, #c7d2fe);
+  color: light-dark(#ffffff, #1e1b4b);
+}
+
+/* Print / PDF (Cyan / Emerald) */
+.resume-pill-btn[data-pill="print"] {
+  background: light-dark(#0284c7, #bae6fd);
+  color: light-dark(#ffffff, #082f49);
+}
+
+/* Copy Markdown (Gold / Amber) */
+.resume-pill-btn[data-pill="copy"] {
+  background: light-dark(#d97706, #fde68a);
+  color: light-dark(#ffffff, #451a03);
+}
+
+/* vCard (Emerald / Green) */
+.resume-pill-btn[data-pill="vcard"] {
+  background: light-dark(#059669, #a7f3d0);
+  color: light-dark(#ffffff, #064e3b);
+}
+
+/* Email (Ruby / Coral) */
+.resume-pill-btn[data-pill="email"] {
+  background: light-dark(#b91c1c, #ffb3ae);
+  color: light-dark(#ffffff, #1a1a1a);
+}
+
+/* Telegram (Sky Blue) */
+.resume-pill-btn[data-pill="telegram"] {
+  background: light-dark(#0369a1, #a9def9);
+  color: light-dark(#ffffff, #1a1a1a);
+}
+
+/* GitHub (Monochrome) */
+.resume-pill-btn[data-pill="github"] {
+  background: light-dark(#000000, #f0f0f0);
+  color: light-dark(#ffffff, #000000);
+}
+
+/* ── Hover Effects (Bounce + Glow) ─────────────────────────── */
+@media (min-width: 500px) {
+  .resume-pill-btn:hover {
+    transform: translateY(-3px) scale(1.06);
+    filter: brightness(0.88) saturate(1.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    opacity: 0.95;
+  }
+
+  .resume-pill-btn:active {
+    transform: translateY(0px) scale(0.97);
+    filter: brightness(0.75);
+    transition-duration: 0.1s;
+  }
+}
+
+/* ── Main Resume Paper Card ────────────────────────────────── */
+.resume-paper {
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  background-color: rgba(12, 12, 16, 0.72) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--primary-color) 18%, rgba(255, 255, 255, 0.12));
+  border-radius: var(--radius-out);
+  padding: 3rem 2.75rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ── Resume Header ─────────────────────────────────────────── */
+.resume-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-color) 14%, transparent);
+  margin-bottom: 2rem;
+}
+
+.resume-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.resume-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+.resume-brand {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--primary-color) 45%, transparent);
+}
+
+.resume-subtitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  margin: 0;
+}
+
+.resume-contact-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  margin-top: 0.4rem;
+}
+
+.resume-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.resume-contact-item:hover {
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* ── Resume Sections ───────────────────────────────────────── */
+.resume-section {
+  margin-bottom: 2.25rem;
+}
+
+.resume-section-heading {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--primary-color) 40%, transparent);
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--primary-color) 25%, transparent);
+}
+
+/* ── Summary & Competencies ────────────────────────────────── */
+.resume-summary {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #f1f5f9;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  margin: 0 0 1.25rem;
+}
+
+.resume-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.9rem;
+}
+
+.resume-skill-card {
+  background: rgba(20, 20, 26, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.resume-skill-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  margin: 0 0 0.4rem;
+}
+
+.resume-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.resume-skill-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.22rem 0.6rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid color-mix(in srgb, var(--primary-color) 30%, rgba(255, 255, 255, 0.1));
+  border-radius: 999px;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* ── Project / Experience Items ────────────────────────────── */
+.resume-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dashed color-mix(in srgb, var(--text-color) 12%, transparent);
+}
+
+.resume-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.resume-item-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.resume-item-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
+  margin: 0;
+}
+
+.resume-item-role {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--primary-color) 35%, transparent);
+}
+
+.resume-item-date {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.resume-item-desc {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #e2e8f0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  margin: 0 0 0.5rem;
+}
+
+.resume-item-bullets {
+  margin: 0 0 0.6rem;
+  padding-left: 1.25rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #e2e8f0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+.resume-item-bullets li {
+  margin-bottom: 0.28rem;
+}
+
+/* ── Education Grid ────────────────────────────────────────── */
+.resume-edu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+/* ── Clean Print Stylesheet (@media print) ─────────────────── */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt;
+  }
+
+  nav,
+  #cursor,
+  .resume-toolbar,
+  .warp-canvas,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  .resume-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .resume-paper {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+  }
+
+  .resume-title {
+    color: #000000 !important;
+    font-size: 22pt !important;
+  }
+
+  .resume-brand,
+  .resume-section-heading,
+  .resume-item-role {
+    color: #0d9488 !important;
+  }
+
+  .resume-subtitle {
+    color: #374151 !important;
+  }
+
+  .resume-contact-bar,
+  .resume-item-date {
+    color: #4b5563 !important;
+  }
+
+  .resume-skill-card {
+    background: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  .resume-skill-title,
+  .resume-item-title {
+    color: #111827 !important;
+  }
+
+  .resume-skill-tag {
+    background: #f3f4f6 !important;
+    border: 1px solid #d1d5db !important;
+    color: #1f2937 !important;
+  }
+
+  .resume-summary,
+  .resume-item-desc,
+  .resume-item-bullets {
+    color: #374151 !important;
+  }
+
+  .resume-item {
+    border-bottom: 1px solid #e5e7eb !important;
+    page-break-inside: avoid;
+  }
+}
+
+/* ── Mobile Responsive Adjustments ─────────────────────────── */
+@media (max-width: 768px) {
+  .resume-container {
+    padding: 1.5rem 1rem 5rem;
+  }
+
+  .resume-paper {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .resume-title {
+    font-size: 1.85rem;
+  }
+
+  .resume-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .resume-toolbar-group {
+    justify-content: center;
+  }
+}

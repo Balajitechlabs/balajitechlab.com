@@ -15,9 +15,13 @@
   position: relative;
   color: var(--text-color);
   border-radius: var(--radius-out);
-  border: none;
-  background: var(--background-color-tr);
-  backdrop-filter: blur(var(--blur));
+  border: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  background-color: rgba(20, 20, 20, 0.6) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  backdrop-filter: blur(24px) !important;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -25,6 +29,7 @@
   padding: 6px;
   z-index: 10;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   opacity: 0;
   visibility: hidden;
   margin: 40px 20px;

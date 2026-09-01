@@ -57,6 +57,15 @@ function formatTimeAgo(timestamp: number): string {
   return `${days}d ago`;
 }
 
+function sanitizeMusicBrand(text?: string): string {
+  if (!text) return "";
+  return text
+    .replace(/ArchiveTune\s*Nightly/gi, "BTL-Music")
+    .replace(/ArchiveTune/gi, "BTL-Music")
+    .replace(/archivetune-nightly/gi, "BTL-Music")
+    .replace(/archivetune/gi, "BTL-Music");
+}
+
 interface LastPlayedTrack {
   song: string;
   artist: string;
@@ -116,6 +125,11 @@ export default function DiscordMusicWidget() {
         chosenActivity?.assets?.large_image
       );
 
+      const rawActivityName = chosenActivity?.name;
+      const cleanActivityName = sanitizeMusicBrand(rawActivityName);
+      const cleanActivityDetails = sanitizeMusicBrand(chosenActivity?.details);
+      const cleanActivityState = sanitizeMusicBrand(chosenActivity?.state);
+
       // Persist active music to localStorage for offline recall
       if (isSpotify && data.spotify) {
         const trackObj: LastPlayedTrack = {
@@ -131,9 +145,9 @@ export default function DiscordMusicWidget() {
         } catch {}
       } else if (activeCustomMusic && musicActivity) {
         const trackObj: LastPlayedTrack = {
-          song: musicActivity.details || musicActivity.name,
-          artist: musicActivity.state || "balajitechlabs",
-          album: musicActivity.name,
+          song: sanitizeMusicBrand(musicActivity.details || musicActivity.name),
+          artist: sanitizeMusicBrand(musicActivity.state || "balajitechlabs"),
+          album: sanitizeMusicBrand(musicActivity.name) || "BTL-Music",
           album_art_url: activityImage || "/assets/img/btl-topographic-avatar.png",
           playedAt: Date.now(),
         };
@@ -155,9 +169,9 @@ export default function DiscordMusicWidget() {
               timestamps: data.spotify.timestamps,
             }
           : null,
-        activityName: chosenActivity?.name,
-        activityDetails: chosenActivity?.details,
-        activityState: chosenActivity?.state,
+        activityName: cleanActivityName,
+        activityDetails: cleanActivityDetails,
+        activityState: cleanActivityState,
         activityImage: activityImage || undefined,
         activityStart: chosenActivity?.timestamps?.start,
         activityEnd: chosenActivity?.timestamps?.end,
@@ -272,9 +286,9 @@ export default function DiscordMusicWidget() {
   const destinationHref = "https://github.com/balajitechlabs/discord-music-card";
 
   const coverImageUrl = spotify?.album_art_url || presence?.activityImage || "/assets/img/btl-topographic-avatar.png";
-  const songTitle = spotify?.song || presence?.activityDetails || presence?.activityName || "Music Player";
-  const songArtist = spotify?.artist || presence?.activityState || presence?.activityName || "balajitechlabs";
-  const albumOrSub = spotify?.album || (isCustomMusic ? presence?.activityName : "balajitechlabs");
+  const songTitle = sanitizeMusicBrand(spotify?.song || presence?.activityDetails || presence?.activityName || "Music Player");
+  const songArtist = sanitizeMusicBrand(spotify?.artist || presence?.activityState || presence?.activityName || "balajitechlabs");
+  const albumOrSub = sanitizeMusicBrand(spotify?.album || (isCustomMusic ? (presence?.activityName || "BTL-Music") : "balajitechlabs"));
 
   const hasLastPlayed = !isPlayingMusic && !presence?.activityName && Boolean(lastPlayed);
 
@@ -334,7 +348,7 @@ export default function DiscordMusicWidget() {
               <div className="music-details-pane">
                 <div className="music-header-row">
                   <span className="music-now-playing-label">
-                    {spotify ? "LISTENING ON SPOTIFY" : "PLAYING ON DISCORD"}
+                    {spotify ? "LISTENING ON SPOTIFY" : isCustomMusic ? "PLAYING ON BTL-MUSIC" : "PLAYING ON DISCORD"}
                   </span>
                 </div>
                 <p className="music-title">
@@ -374,35 +388,41 @@ export default function DiscordMusicWidget() {
               <div className="music-details-pane">
                 <div className="music-header-row">
                   <span className="music-now-playing-label">
-                    LAST PLAYED · {formatTimeAgo(lastPlayed.playedAt)}
+                    LAST PLAYED ON BTL-MUSIC · {formatTimeAgo(lastPlayed.playedAt)}
                   </span>
                 </div>
                 <p className="music-title">
-                  <strong>{lastPlayed.song}</strong>
+                  <strong>{sanitizeMusicBrand(lastPlayed.song)}</strong>
                 </p>
-                <p className="music-artist">{lastPlayed.artist}</p>
+                <p className="music-artist">{sanitizeMusicBrand(lastPlayed.artist)}</p>
                 <p className="track-album-sub">
-                  {status === "online" ? "Online on Discord" : "Offline"}
+                  {status === "online"
+                    ? "🟢 Online on Discord"
+                    : status === "idle"
+                    ? "🟡 Away from Keyboard"
+                    : status === "dnd"
+                    ? "🔴 Do Not Disturb"
+                    : "⚪ Offline · Tap to view track on GitHub"}
                 </p>
               </div>
             ) : (
               <div className="music-details-pane">
                 <div className="music-header-row">
-                  <span className="music-now-playing-label">DISCORD PRESENCE</span>
+                  <span className="music-now-playing-label">DISCORD PRESENCE · BENGALURU 🇮🇳</span>
                 </div>
                 <p className="music-title">
                   <strong>Balaji S.</strong>
                 </p>
                 <p className="music-artist">
                   {status === "online"
-                    ? "Online & Coding"
+                    ? "🟢 Online & Building QuickDash"
                     : status === "idle"
-                    ? "Away from Keyboard"
+                    ? "🟡 Away from Keyboard"
                     : status === "dnd"
-                    ? "Do Not Disturb"
-                    : "Offline"}
+                    ? "🔴 Do Not Disturb"
+                    : "⚪ Offline · Principal Android Architect"}
                 </p>
-                <p className="track-album-sub">balajitechlabs</p>
+                <p className="track-album-sub">||BTL||™ · balajitechlabs</p>
               </div>
             )}
           </div>
