@@ -74,6 +74,62 @@ interface LastPlayedTrack {
   playedAt: number;
 }
 
+function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+    h /= 6;
+  }
+  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+}
+
+function hslToRgb(h: number, s: number, l: number): [number, number, number] {
+  h /= 360;
+  s /= 100;
+  l /= 100;
+  let r: number, g: number, b: number;
+
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p: number, q: number, t: number) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
+
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
 async function extractAlbumColor(imageUrl: string): Promise<string | null> {
   return new Promise((resolve) => {
     try {
@@ -85,18 +141,16 @@ async function extractAlbumColor(imageUrl: string): Promise<string | null> {
       img.onload = () => {
         try {
           const canvas = document.createElement("canvas");
-          canvas.width = 16;
-          canvas.height = 16;
+          canvas.width = 24;
+          canvas.height = 24;
           const ctx = canvas.getContext("2d", { willReadFrequently: true });
           if (!ctx) return resolve(null);
 
-          ctx.drawImage(img, 0, 0, 16, 16);
-          const data = ctx.getImageData(0, 0, 16, 16).data;
+          ctx.drawImage(img, 0, 0, 24, 24);
+          const data = ctx.getImageData(0, 0, 24, 24).data;
 
-          let rTotal = 0,
-            gTotal = 0,
-            bTotal = 0,
-            count = 0;
+          let bestScore = -1;
+          let bestHsl: [number, number, number] = [160, 80, 50];
 
           for (let i = 0; i < data.length; i += 4) {
             const r = data[i];
@@ -104,26 +158,28 @@ async function extractAlbumColor(imageUrl: string): Promise<string | null> {
             const b = data[i + 2];
             const a = data[i + 3];
 
-            if (a > 128) {
-              const max = Math.max(r, g, b);
-              const min = Math.min(r, g, b);
-              const diff = max - min;
-              if (max > 30 && min < 240) {
-                const weight = diff > 25 ? 4 : 1;
-                rTotal += r * weight;
-                gTotal += g * weight;
-                bTotal += b * weight;
-                count += weight;
+            if (a > 150) {
+              const [h, s, l] = rgbToHsl(r, g, b);
+              // Score colors based on saturation and ideal luminance (avoiding black/white)
+              if (s > 15 && l > 15 && l < 88) {
+                const lumPenalty = Math.abs(l - 55) * 1.2;
+                const score = s * 2.5 - lumPenalty;
+                if (score > bestScore) {
+                  bestScore = score;
+                  bestHsl = [h, s, l];
+                }
               }
             }
           }
 
-          if (count === 0) return resolve(null);
-          const avgR = Math.round(rTotal / count);
-          const avgG = Math.round(gTotal / count);
-          const avgB = Math.round(bTotal / count);
+          if (bestScore === -1) return resolve(null);
 
-          resolve(`rgb(${avgR}, ${avgG}, ${avgB})`);
+          // Boost saturation and normalize luminance for a vivid glowing neon aesthetic
+          const boostedS = Math.max(75, Math.min(100, bestHsl[1] * 1.3));
+          const boostedL = Math.max(50, Math.min(65, bestHsl[2]));
+          const [finalR, finalG, finalB] = hslToRgb(bestHsl[0], boostedS, boostedL);
+
+          resolve(`rgb(${finalR}, ${finalG}, ${finalB})`);
         } catch {
           resolve(null);
         }
@@ -415,21 +471,27 @@ export default function DiscordMusicWidget() {
             boxShadow:
               isPlayingMusic || hasLastPlayed
                 ? dynamicGlowColor
-                  ? `0 14px 40px color-mix(in srgb, ${dynamicGlowColor} 30%, rgba(0, 0, 0, 0.4)), 0 0 24px color-mix(in srgb, ${dynamicGlowColor} 20%, transparent)`
+                  ? `0 16px 45px color-mix(in srgb, ${dynamicGlowColor} 40%, rgba(0, 0, 0, 0.45)), 0 0 28px color-mix(in srgb, ${dynamicGlowColor} 30%, transparent), 0 0 60px color-mix(in srgb, ${dynamicGlowColor} 18%, transparent)`
                   : undefined
                 : undefined,
             borderColor:
               isPlayingMusic || hasLastPlayed
                 ? dynamicGlowColor
-                  ? `color-mix(in srgb, ${dynamicGlowColor} 50%, rgba(255, 255, 255, 0.1))`
+                  ? `color-mix(in srgb, ${dynamicGlowColor} 60%, rgba(255, 255, 255, 0.15))`
                   : undefined
                 : undefined,
           } as React.CSSProperties
         }
       >
+        <div className="music-ambient-beam" aria-hidden="true" />
         <div id="music-holder">
           {isPlayingMusic ? (
             <div className="discord-artwork-container">
+              <div
+                className="artwork-glow-underlay"
+                style={{ backgroundImage: `url(${coverImageUrl})` }}
+                aria-hidden="true"
+              />
               <img
                 id="artwork"
                 src={coverImageUrl}
@@ -442,6 +504,11 @@ export default function DiscordMusicWidget() {
             </div>
           ) : hasLastPlayed && lastPlayed ? (
             <div className="discord-artwork-container">
+              <div
+                className="artwork-glow-underlay"
+                style={{ backgroundImage: `url(${lastPlayed.album_art_url})` }}
+                aria-hidden="true"
+              />
               <img
                 id="artwork"
                 src={lastPlayed.album_art_url}
