@@ -471,22 +471,23 @@ section:not(#intro, #apps) {
   -webkit-backdrop-filter: blur(24px) !important;
   backdrop-filter: blur(24px) !important;
   border-radius: var(--radius-out);
-  border: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
   padding: 24px 18px 14px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  overflow-x: auto;
+  overflow: hidden !important;
+  overflow-x: auto !important;
   overflow-y: visible;
-  will-change: transform, backdrop-filter;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  will-change: transform;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .github-calendar:hover {
-  border-color: color-mix(in srgb, var(--primary-color) 60%, transparent);
-  box-shadow: 0 12px 35px color-mix(in srgb, var(--primary-color) 25%, rgba(0, 0, 0, 0.4));
+  border-color: color-mix(in srgb, var(--primary-color) 40%, transparent);
+  box-shadow: 0 20px 48px color-mix(in srgb, var(--primary-color) 15%, rgba(0, 0, 0, 0.35));
 }
 
 .github-calendar,

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import DiscordMusicWidget from "@/components/DiscordMusicWidget";
 import SocialsChips from "@/components/SocialsChips";
@@ -32,6 +33,10 @@ interface HomeClientProps {
 export default function HomeClient({
   updatesSection,
 }: HomeClientProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const modeParam = searchParams.get("mode");
+
   const [viewMode, setViewMode] = useState<"visual" | "resume">("visual");
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
@@ -221,15 +226,40 @@ export default function HomeClient({
     return age;
   };
 
+  const handleViewModeChange = useCallback(
+    (mode: "visual" | "resume") => {
+      setViewMode(mode);
+      try {
+        localStorage.setItem("btl_view_mode", mode);
+      } catch {}
+
+      if (mode === "resume") {
+        router.push("/?mode=resume", { scroll: false });
+      } else {
+        router.push("/", { scroll: false });
+      }
+    },
+    [router]
+  );
+
+  // Synchronize state directly with URL mode query parameter
   useEffect(() => {
     setIsMounted(true);
-    try {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("mode") === "resume") {
-        setViewMode("resume");
-      }
-    } catch {}
+    if (modeParam === "resume") {
+      setViewMode("resume");
+    } else if (modeParam === "visual") {
+      setViewMode("visual");
+    } else {
+      try {
+        const savedMode = localStorage.getItem("btl_view_mode");
+        if (savedMode === "resume") {
+          setViewMode("resume");
+        }
+      } catch {}
+    }
+  }, [modeParam]);
 
+  useEffect(() => {
     try {
       const savedTheme = localStorage.getItem("btl_theme") as
         | "topographic"
@@ -312,16 +342,10 @@ export default function HomeClient({
 
       if (e.key === "r" || e.key === "R") {
         soundFx.playPop();
-        setViewMode("resume");
-        if (typeof window !== "undefined") {
-          window.history.replaceState(null, "", "/?mode=resume");
-        }
+        handleViewModeChange("resume");
       } else if (e.key === "v" || e.key === "V") {
         soundFx.playPop();
-        setViewMode("visual");
-        if (typeof window !== "undefined") {
-          window.history.replaceState(null, "", "/");
-        }
+        handleViewModeChange("visual");
       } else if (e.key === "t" || e.key === "T") {
         soundFx.playClick();
         setActiveTheme((prev) => {
@@ -341,7 +365,7 @@ export default function HomeClient({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [handleViewModeChange]);
 
   // ── Ensure all items in visual mode are fully visible on tab switches ──
   useEffect(() => {
@@ -554,10 +578,7 @@ export default function HomeClient({
                   <button
                     onClick={() => {
                       soundFx.playPop();
-                      setViewMode("visual");
-                      if (typeof window !== "undefined") {
-                        window.history.replaceState(null, "", "/");
-                      }
+                      handleViewModeChange("visual");
                     }}
                     title="Press 'V' on keyboard"
                     style={{
@@ -599,10 +620,7 @@ export default function HomeClient({
                   <button
                     onClick={() => {
                       soundFx.playPop();
-                      setViewMode("resume");
-                      if (typeof window !== "undefined") {
-                        window.history.replaceState(null, "", "/?mode=resume");
-                      }
+                      handleViewModeChange("resume");
                     }}
                     title="Press 'R' on keyboard"
                     style={{
@@ -1048,7 +1066,7 @@ export default function HomeClient({
           display: viewMode === "resume" ? "block" : "none",
         }}
       >
-        <ExecutiveResume onSwitchMode={setViewMode} showModeToggle={false} />
+        <ExecutiveResume onSwitchMode={handleViewModeChange} showModeToggle={true} />
       </div>
 
       {/* Full Rich Animated Developer Footer */}

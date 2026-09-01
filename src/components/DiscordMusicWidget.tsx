@@ -487,11 +487,6 @@ export default function DiscordMusicWidget() {
         <div id="music-holder">
           {isPlayingMusic ? (
             <div className="discord-artwork-container">
-              <div
-                className="artwork-glow-underlay"
-                style={{ backgroundImage: `url(${coverImageUrl})` }}
-                aria-hidden="true"
-              />
               <img
                 id="artwork"
                 src={coverImageUrl}
@@ -504,11 +499,6 @@ export default function DiscordMusicWidget() {
             </div>
           ) : hasLastPlayed && lastPlayed ? (
             <div className="discord-artwork-container">
-              <div
-                className="artwork-glow-underlay"
-                style={{ backgroundImage: `url(${lastPlayed.album_art_url})` }}
-                aria-hidden="true"
-              />
               <img
                 id="artwork"
                 src={lastPlayed.album_art_url}

@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Footer from "@/components/Footer";
+
 export default function ResumePage() {
   return (
     <>
@@ -42,8 +44,9 @@ export default function ResumePage() {
       <WarpShaderBackground opacity={0.65} />
       <Navbar />
       <main style={{ minHeight: "100vh", position: "relative", zIndex: 10, paddingTop: "1.5rem" }}>
-        <ExecutiveResume showModeToggle={false} />
+        <ExecutiveResume showModeToggle={true} />
       </main>
+      <Footer />
     </>
   );
 }

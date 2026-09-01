@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { soundFx } from "@/lib/soundFx";
 
@@ -13,6 +14,7 @@ export default function ExecutiveResume({
   onSwitchMode,
   showModeToggle = true,
 }: ExecutiveResumeProps) {
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
 
   const handlePrint = () => {
@@ -107,11 +109,15 @@ END:VCARD`;
       <div className="resume-toolbar">
         <div className="resume-ambient-beam" aria-hidden="true" />
         <div className="resume-toolbar-group">
-          {showModeToggle && onSwitchMode && (
+          {showModeToggle && (
             <button
               onClick={() => {
                 soundFx.playPop();
-                onSwitchMode("visual");
+                if (onSwitchMode) {
+                  onSwitchMode("visual");
+                } else {
+                  router.push("/");
+                }
               }}
               className="resume-pill-btn"
               data-pill="visual"

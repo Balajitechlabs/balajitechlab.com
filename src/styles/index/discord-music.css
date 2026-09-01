@@ -15,12 +15,12 @@
   position: relative;
   color: var(--text-color);
   border-radius: var(--radius-out);
-  border: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transform: translateZ(0) !important;
   -webkit-transform: translateZ(0) !important;
-  background-color: rgba(20, 20, 20, 0.6) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  backdrop-filter: blur(24px) !important;
+  background-color: var(--background-color-tr) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) !important;
+  backdrop-filter: blur(var(--blur)) !important;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -28,8 +28,8 @@
   text-align: left;
   padding: 6px;
   z-index: 10;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
   opacity: 0;
   visibility: hidden;
   margin: 40px 20px;
@@ -207,28 +207,9 @@
     height: 84px;
     margin-right: 14px;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .artwork-glow-underlay {
-    position: absolute;
-    inset: -2px;
-    border-radius: 14px;
-    background-size: cover;
-    background-position: center;
-    filter: blur(14px) saturate(1.8) brightness(1.2);
-    opacity: 0.65;
-    z-index: 0;
-    transform: scale(0.92);
-    transition: background-image 0.5s ease, opacity 0.5s ease;
-    pointer-events: none;
   }
 
   .music-album-art {
-    position: relative;
-    z-index: 1;
     width: 84px !important;
     height: 84px !important;
     border-radius: 12px;

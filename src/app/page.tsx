@@ -22,5 +22,9 @@ export default async function Home() {
     </section>
   );
 
-  return <HomeClient updatesSection={updatesSection} />;
+  return (
+    <Suspense fallback={null}>
+      <HomeClient updatesSection={updatesSection} />
+    </Suspense>
+  );
 }

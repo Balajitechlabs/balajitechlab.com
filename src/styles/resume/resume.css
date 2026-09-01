@@ -22,24 +22,18 @@
   }
 }
 
-/* ── Hardware-Accelerated Frosted Glass Action Toolbar (Matches Footer) ── */
+/* ── Solid Non-Transparent Action Toolbar ── */
 .resume-toolbar {
   width: 100%;
   max-width: 900px;
   margin-bottom: 1.75rem;
   padding: 0.85rem 1.5rem;
   border-radius: var(--radius-out);
-  background-color: var(--background-color-tr) !important;
-  -webkit-backdrop-filter: blur(var(--blur)) !important;
-  backdrop-filter: blur(var(--blur)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  background-color: var(--background-color-primary) !important;
+  border: 1px solid color-mix(in srgb, var(--text-color) 14%, transparent);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
   overflow: hidden !important;
-  contain: paint;
-  will-change: transform;
   position: relative;
   z-index: 10;
   display: flex;
@@ -173,25 +167,19 @@
   }
 }
 
-/* ── Main Resume Paper Card (Exact Architecture of .portfolio-footer-card) ── */
+/* ── Main Resume Paper Card (Solid Non-Transparent High Contrast) ── */
 .resume-paper {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
   padding: 2.5rem;
   border-radius: var(--radius-out);
-  background-color: var(--background-color-tr) !important;
-  -webkit-backdrop-filter: blur(var(--blur)) !important;
-  backdrop-filter: blur(var(--blur)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  background-color: var(--background-color-primary) !important;
+  border: 1px solid color-mix(in srgb, var(--text-color) 14%, transparent);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
   box-sizing: border-box;
   text-align: left;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
   overflow: hidden !important;
-  contain: paint;
-  will-change: transform;
   position: relative;
   z-index: 10;
   color: var(--text-color);
@@ -201,7 +189,7 @@
 
 .resume-paper:hover {
   border-color: color-mix(in srgb, var(--primary-color) 40%, transparent);
-  box-shadow: 0 20px 48px color-mix(in srgb, var(--primary-color) 15%, rgba(0, 0, 0, 0.35));
+  box-shadow: 0 24px 56px color-mix(in srgb, var(--primary-color) 15%, rgba(0, 0, 0, 0.4));
 }
 
 /* ── Resume Header ─────────────────────────────────────────── */
