@@ -18,6 +18,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://balajitechlab.com/",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "1024x1024" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "1024x1024", type: "image/png" }],
+    shortcut: ["/favicon.ico"],
+  },
   keywords: [
     "Balaji S",
     "balajitechlabs",
