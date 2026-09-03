@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { soundFx } from "@/lib/soundFx";
+import { VCARD_PHOTO_BASE64 } from "@/lib/vcardPhoto";
 
 interface ExecutiveResumeProps {
   onSwitchMode?: (mode: "visual" | "resume") => void;
@@ -77,19 +78,27 @@ Principal Android Architect and Full-Stack Engineer with deep expertise in Andro
 
   const handleDownloadVCard = () => {
     soundFx.playClick();
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-N:S.;Balaji;;;
-FN:Balaji S. (balajitechlabs)
-ORG:balajitechlabs
-TITLE:Principal Android Architect & Full Stack Developer
-EMAIL;TYPE=INTERNET,PREF:admin@balajitechlab.com
-URL;TYPE=WORK:https://balajitechlab.com
-URL;TYPE=GITHUB:https://github.com/balajitechlabs
-URL;TYPE=LINKEDIN:https://linkedin.com/in/balajitechlabs
-ADR;TYPE=WORK:;;Kasturi-Nagar;Bengaluru;Karnataka;;India
-NOTE:Principal Android Architect & Creator of QuickDash and ||BTL||™
-END:VCARD`;
+    const vCardLines = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "N:S.;Balaji;;;",
+      "FN:Balaji S. (balajitechlabs)",
+      "NICKNAME:BTL",
+      "ORG:balajitechlabs;Balaji Tech Labs",
+      "TITLE:Principal Android Architect & Full Stack Developer",
+      "EMAIL;TYPE=INTERNET,PREF:admin@balajitechlab.com",
+      "EMAIL;TYPE=WORK:balajitechlabs.github@gmail.com",
+      "URL;TYPE=WORK:https://balajitechlab.com",
+      "URL;TYPE=GITHUB:https://github.com/balajitechlabs",
+      "URL;TYPE=LINKEDIN:https://linkedin.com/in/balajitechlabs",
+      "URL;TYPE=PLAYSTORE:https://play.google.com/store/apps/dev?id=9073716923131512981",
+      "ADR;TYPE=WORK:;;Kasturi-Nagar;Bengaluru;Karnataka;;India",
+      `PHOTO;ENCODING=b;TYPE=JPEG:${VCARD_PHOTO_BASE64}`,
+      `LOGO;ENCODING=b;TYPE=JPEG:${VCARD_PHOTO_BASE64}`,
+      "NOTE:Principal Android Architect · Creator of QuickDash · Essentials UI · ||BTL||™",
+      "END:VCARD",
+    ];
+    const vCardData = vCardLines.join("\r\n");
 
     const blob = new Blob([vCardData], { type: "text/vcard;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -100,7 +109,7 @@ END:VCARD`;
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    toast.success("Contact Card (.vcf) Downloaded! 📇");
+    toast.success("Contact Card (.vcf) with Avatar Attached! 📇");
   };
 
   return (
