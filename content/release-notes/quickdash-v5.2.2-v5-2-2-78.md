@@ -6,7 +6,6 @@ version: "v5.2.2"
 date: "2026-08-15"
 time: "06:39:09"
 tags: ["Android", "Kotlin", "Material 3", "System UI", "FOSS"]
-badge: "Latest Version"
 link: "https://quickdash.balajitechlab.com"
 ---
 

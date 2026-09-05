@@ -1,5 +1,25 @@
 [
   {
+    "slug": "quickdash-v5.2.3-v5-2-3-525",
+    "title": "QuickDash v5.2.3",
+    "description": "🌿 Architecture Modernization, 100% True Zero-Tracker FOSS & In-App Update Overhaul.",
+    "app": "quickdash",
+    "version": "v5.2.3",
+    "date": "2026-09-05",
+    "time": "20:31:37",
+    "tags": [
+      "Android",
+      "Kotlin",
+      "Material 3",
+      "System UI",
+      "FOSS",
+      "QR Scanner"
+    ],
+    "badge": "Latest Version",
+    "link": "https://quickdash.balajitechlab.com",
+    "contentHtml": "<h2>QuickDash v5.2.3</h2>\n<h3>📦 Downloads</h3>\n<ul>\n<li><strong><code>app-foss-release.apk</code></strong> — 🌿 <strong>100% Zero-Tracker FOSS Edition</strong> (for F-Droid &#x26; IzzyOnDroid)</li>\n<li><strong><code>app-universal-release.apk</code></strong> — Universal APK (works on all Android devices)</li>\n<li><strong><code>app-arm64-v8a-release.apk</code></strong> — 64-bit ARM for modern devices (2020+)</li>\n<li><strong><code>app-armeabi-v7a-release.apk</code></strong> — 32-bit ARM for older devices</li>\n<li><strong><code>app-release.aab</code></strong> — Google Play App Bundle</li>\n<li><strong><code>checksums.txt</code></strong> — Cryptographic SHA-256 file hashes</li>\n</ul>\n<h3>📲 Install Instructions</h3>\n<ol>\n<li>Download the APK for your device.</li>\n<li>On Android, enable <strong>Settings → Install unknown apps</strong> for your browser.</li>\n<li>Open the file and tap <strong>Install</strong>.</li>\n</ol>\n<h2>What's Changed</h2>\n<ul>\n<li><strong>Quick Settings Tile</strong>: Monochrome vector icon and Android 14+ synchronous launch from notification shade.</li>\n<li><strong>Spotlight Search</strong>: Direct 1-tap camera QR scanner launch without intermediate menus.</li>\n<li><strong>AI Code Purge</strong>: Purged 88,000+ lines of AI-generated boilerplate, synthetic wrappers, and dead code.</li>\n<li><strong>100% True Zero-Tracker Pure FOSS Architecture</strong>: Completely purged Firebase Crashlytics, Messaging, ML Kit, and MediaPipe for F-Droid and IzzyOnDroid.</li>\n<li><strong>Compose Performance</strong>: Added lifecycle-aware state collection and LazyColumn key stability.</li>\n<li><strong>Sensitive Clipboard Privacy Shield</strong>: Automatic privacy masking with interactive eye reveal toggle.</li>\n<li><strong>Essentials Floating Navigation Dock</strong>: Dedicated About and personal brand showcase hub.</li>\n<li><strong>Semantic In-App Update Engine</strong>: Semver parsing, ABI matching, and clean SemVer tagging.</li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/Balajitechlabs/quickdash/compare/v5.2.2-78...v5.2.3-525\">https://github.com/Balajitechlabs/quickdash/compare/v5.2.2-78...v5.2.3-525</a></p>"
+  },
+  {
     "slug": "discord-music-card-v1.0.0",
     "title": "Discord Activity & Live Music Card",
     "description": "Real-time animated SVG status card displaying live Discord Rich Presence, currently playing music, and animated equalizers.",
@@ -49,7 +69,6 @@
       "System UI",
       "FOSS"
     ],
-    "badge": "Latest Version",
     "link": "https://quickdash.balajitechlab.com",
     "contentHtml": "<h2>QuickDash v5.2.2</h2>\n<h3>📦 Downloads</h3>\n<ul>\n<li><strong><code>app-foss-release.apk</code></strong> — 🌿 <strong>100% Zero-Tracker FOSS Edition</strong> (for F-Droid &#x26; IzzyOnDroid)</li>\n<li><strong><code>app-universal-release.apk</code></strong> — Universal APK (works on all Android devices)</li>\n<li><strong><code>app-arm64-v8a-release.apk</code></strong> — 64-bit ARM for modern devices (2020+)</li>\n<li><strong><code>app-armeabi-v7a-release.apk</code></strong> — 32-bit ARM for older devices</li>\n<li><strong><code>app-release.aab</code></strong> — Google Play App Bundle</li>\n<li><strong><code>checksums.txt</code></strong> — Cryptographic SHA-256 file hashes</li>\n</ul>\n<h3>📲 Install Instructions</h3>\n<ol>\n<li>Download the APK for your device.</li>\n<li>On Android, enable <strong>Settings → Install unknown apps</strong> for your browser.</li>\n<li>Open the file and tap <strong>Install</strong>.</li>\n</ol>\n<h2>What's Changed</h2>\n<ul>\n<li>docs: improve README by @webbrain-one in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/45\">https://github.com/Balajitechlabs/quickdash/pull/45</a></li>\n<li>chore(deps): bump the npm-website group in /website with 5 updates by @dependabot[bot] in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/38\">https://github.com/Balajitechlabs/quickdash/pull/38</a></li>\n<li>chore(ci): bump the github-actions group with 6 updates by @dependabot[bot] in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/40\">https://github.com/Balajitechlabs/quickdash/pull/40</a></li>\n<li>chore(deps): bump the build-tools group with 4 updates by @dependabot[bot] in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/41\">https://github.com/Balajitechlabs/quickdash/pull/41</a></li>\n<li>chore(deps): bump com.google.gms.google-services from 4.4.1 to 4.5.0 by @dependabot[bot] in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/43\">https://github.com/Balajitechlabs/quickdash/pull/43</a></li>\n<li>chore(deps): bump com.google.mediapipe:tasks-genai from 0.10.22 to 0.10.35 by @dependabot[bot] in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/44\">https://github.com/Balajitechlabs/quickdash/pull/44</a></li>\n<li>security: resolve CodeQL alerts (WebView, PendingIntents, FCM logging, and backup rules) by @Balajitechlabs in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/46\">https://github.com/Balajitechlabs/quickdash/pull/46</a></li>\n<li>feat(release): v5.2.2 Zero-Tracker FOSS Edition, Workflows &#x26; Privacy Hardening by @Balajitechlabs in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/47\">https://github.com/Balajitechlabs/quickdash/pull/47</a></li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li>@webbrain-one made their first contribution in <a href=\"https://github.com/Balajitechlabs/quickdash/pull/45\">https://github.com/Balajitechlabs/quickdash/pull/45</a></li>\n</ul>\n<p><strong>Full Changelog</strong>: <a href=\"https://github.com/Balajitechlabs/quickdash/compare/v5.2.1-73...v5.2.2-78\">https://github.com/Balajitechlabs/quickdash/compare/v5.2.1-73...v5.2.2-78</a></p>"
   },

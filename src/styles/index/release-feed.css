@@ -277,7 +277,8 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   padding: 20px;
-  touch-action: none; /* Prevent touch scroll propagation */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .release-modal-backdrop.visible {
@@ -291,7 +292,9 @@
   width: 100%;
   max-width: 620px;
   max-height: 85vh;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   padding: 2.25rem 2.5rem;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 
               0 0 0 1px color-mix(in srgb, var(--primary-color) 18%, transparent),
@@ -303,6 +306,23 @@
   box-sizing: border-box;
   overscroll-behavior: contain;
   will-change: transform, opacity;
+}
+
+.release-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.release-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.release-modal::-webkit-scrollbar-thumb {
+  background: var(--background-color-secondary);
+  border-radius: 999px;
+}
+
+.release-modal::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }
 
 .release-modal-backdrop.visible .release-modal {

@@ -5,6 +5,8 @@
   "packageManager": "pnpm@10.6.2",
   "scripts": {
     "dev": "next dev",
+    "build:notes": "node scripts/build-release-notes.mjs",
+    "prebuild": "node scripts/build-release-notes.mjs",
     "build": "next build",
     "build:cf": "opennextjs-cloudflare build",
     "deploy:cf": "opennextjs-cloudflare build && wrangler pages deploy .open-next",

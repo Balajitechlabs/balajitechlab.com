@@ -318,10 +318,12 @@ export default function ReleaseFeed({
             "--origin-x": modalOrigin?.x ?? "50%",
             "--origin-y": modalOrigin?.y ?? "50%",
           } as React.CSSProperties}
+          data-lenis-prevent="true"
         >
           <div 
             className={`release-modal ${isModalVisible ? "visible" : ""}`}
             data-app={selectedNote.app}
+            data-lenis-prevent="true"
           >
             {/* Top Bar Header with macOS style traffic light on left */}
             <div className="release-modal-header">
