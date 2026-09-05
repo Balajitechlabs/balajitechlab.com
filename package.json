@@ -38,7 +38,7 @@
     "@types/react-dom": "^19.2.5",
     "eslint": "^9.39.4",
     "eslint-config-next": "16.3.3",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "wrangler": "^4.127.1"
   },
   "overrides": {
