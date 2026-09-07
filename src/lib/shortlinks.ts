@@ -165,7 +165,35 @@ export const SHORTLINKS: Record<string, Shortlink> = {
     badge: "Verified ATS Resume",
     description: "Official single-page vector PDF resume for Balaji S. (Principal Android Architect & Full Stack Developer).",
   },
+  gitlab: {
+    slug: "gitlab",
+    title: "balajitechlabs on GitLab",
+    destination: "https://gitlab.com/balajitechlabs",
+    category: "Open Source",
+    icon: "code",
+    badge: "GitLab Profile",
+    description: "Explore balajitechlabs projects, mirrors, and open-source work on GitLab.",
+  },
+  reddit: {
+    slug: "reddit",
+    title: "r/balajitechlabs Community",
+    destination: "https://www.reddit.com/r/balajitechlabs/",
+    category: "Social",
+    icon: "forum",
+    badge: "Reddit Community",
+    description: "Join the r/balajitechlabs subreddit for QuickDash updates, discussions, and community support.",
+  },
+  "quickdash-community": {
+    slug: "quickdash-community",
+    title: "QuickDash Telegram Community",
+    destination: "https://t.me/+FYlt5cBA29Q0ZWJl",
+    category: "Social",
+    icon: "groups",
+    badge: "QuickDash Official Group",
+    description: "Join the official QuickDash Telegram community for beta releases, tips, and direct support.",
+  },
 };
+
 
 export function getShortlink(slug: string): Shortlink | null {
   const normalized = slug.toLowerCase().trim();
