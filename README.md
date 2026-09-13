@@ -3,7 +3,7 @@
 # balajitechlab.com
 
 **The Personal Engineering Lab & Production Showcase of Balaji S. (`balajitechlabs`)**  
-*Principal Android Architect, Systems Engineer & Full-Stack Developer &mdash; Bengaluru, India 🇮🇳*
+*Principal Android Architect, Systems Engineer & Full-Stack Developer &mdash; , India 🇮🇳*
 
 [![Production Status](https://img.shields.io/badge/Status-Live%20on%20Edge-00f0ff?style=flat-square&logo=cloudflare)](https://balajitechlab.com)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.3.3%20(Turbopack)-black?style=flat-square&logo=next.js)](https://nextjs.org/)
