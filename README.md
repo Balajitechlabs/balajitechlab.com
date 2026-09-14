@@ -57,7 +57,6 @@ flowchart TD
 ```
 
 ---
-
 ## ⚡ Core Engineering Subsystems
 
 ### 1. 🎵 Real-Time Discord Gateway & Offline Playback Sync
