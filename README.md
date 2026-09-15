@@ -164,7 +164,6 @@ pnpm audit
 ```
 
 ---
-
 ## 🚀 Cloudflare Edge Deployment
 
 The production deployment builds via `@opennextjs/cloudflare` into an optimized single worker bundle:
