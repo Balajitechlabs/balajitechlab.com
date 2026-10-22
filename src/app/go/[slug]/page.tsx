@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { getShortlink } from "@/lib/shortlinks";
 import NotFoundView from "@/components/NotFoundView";
@@ -56,5 +56,9 @@ export default async function GoPage({ params }: PageProps) {
     return <NotFoundView slug={slug} />;
   }
 
-  return <RedirectBridge shortlink={shortlink} />;
+  return (
+    <Suspense fallback={null}>
+      <RedirectBridge shortlink={shortlink} />
+    </Suspense>
+  );
 }

@@ -1,24 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Graceful initialization timer (smooth 750ms reveal on refresh/load)
+    // Ultra-snappy mobile & desktop reveal
     const handleComplete = () => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 700);
+      }, 550);
     };
 
     if (document.readyState === "complete") {
       handleComplete();
     } else {
-      window.addEventListener("load", handleComplete);
-      const fallbackTimer = setTimeout(handleComplete, 1200);
+      window.addEventListener("load", handleComplete, { once: true });
+      const fallbackTimer = setTimeout(handleComplete, 1000);
       return () => {
         window.removeEventListener("load", handleComplete);
         clearTimeout(fallbackTimer);
@@ -34,26 +35,29 @@ export default function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{ 
             opacity: 0, 
-            scale: 1.03,
-            transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } 
+            scale: 1.02,
+            transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } 
           }}
           className="btl-splash-overlay"
         >
-          <div className="btl-splash-ambient-glow" />
+          <div className="btl-splash-ambient-glow" aria-hidden="true" />
           
           <motion.div 
             className="btl-splash-content"
-            initial={{ opacity: 0, y: 15, scale: 0.96 }}
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {/* Logo Avatar with Breathing Glow */}
             <div className="btl-splash-logo-wrap">
-              <div className="btl-splash-logo-pulse-ring" />
-              <img
+              <div className="btl-splash-logo-pulse-ring" aria-hidden="true" />
+              <Image
                 src="/assets/img/btl-topographic-avatar.png"
                 alt="balajitechlabs"
+                width={84}
+                height={84}
                 className="btl-splash-logo-img"
+                priority
               />
             </div>
 
@@ -64,13 +68,13 @@ export default function LoadingScreen() {
               <p className="btl-splash-caption">INITIALIZING SYSTEMS</p>
             </div>
 
-            {/* High-Tech Progress Bar */}
-            <div className="btl-splash-progress-track">
+            {/* Minimalist Progress Bar */}
+            <div className="btl-splash-progress-track" aria-hidden="true">
               <motion.div 
                 className="btl-splash-progress-fill"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 0.65, ease: "easeInOut" }}
+                transition={{ duration: 0.55, ease: "easeInOut" }}
               />
             </div>
           </motion.div>

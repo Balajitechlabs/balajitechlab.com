@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -13,7 +14,19 @@ interface RedirectBridgeProps {
 }
 
 export default function RedirectBridge({ shortlink }: RedirectBridgeProps) {
+  const searchParams = useSearchParams();
+  const isDirect =
+    searchParams?.get("direct") === "1" ||
+    searchParams?.get("instant") === "1" ||
+    searchParams?.get("instant") === "true";
+
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (isDirect && typeof window !== "undefined") {
+      window.location.replace(shortlink.destination);
+    }
+  }, [isDirect, shortlink.destination]);
 
   const handleOpenDestination = () => {
     soundFx.playClick();
